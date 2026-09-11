@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+
+  # Biarkan file asset dan file nyata dilayani langsung.
+  RewriteCond %{REQUEST_FILENAME} -f [OR]
+  RewriteCond %{REQUEST_FILENAME} -d
+  RewriteRule ^ - [L]
+
+  # Semua route React Router diarahkan ke entry point aplikasi.
+  RewriteRule ^ index.html [L]
+</IfModule>
