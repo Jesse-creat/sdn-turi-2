@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/config.php';
+require __DIR__ . '/../config/database.php';
 startApiSession();
 $method = $_SERVER['REQUEST_METHOD'];
 

@@ -1,95 +1,97 @@
-# SD Negeri 1 Nusantara
+# SDN Turi 2
 
-Website sekolah berbasis React dan Vite, siap dipublikasikan sebagai static site di cPanel.
+Website SDN Turi 2 menggunakan React + Vite sebagai frontend, PHP sebagai REST API, dan MySQL/MariaDB sebagai database. React tidak terhubung langsung ke database.
 
-## Menjalankan di komputer
+## Struktur Development
+
+```text
+sdn-turi-2/
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── data/
+│   │   ├── pages/public/
+│   │   ├── pages/admin/
+│   │   └── services/
+│   ├── index.html
+│   └── vite.config.js
+├── backend/
+│   ├── api/
+│   ├── config/database.php
+│   ├── uploads/articles/
+│   └── .htaccess
+├── database/schema.sql
+├── package.json
+└── README.md
+```
+
+`package.json` tetap berada di root agar `npm install`, `npm run dev`, `npm run lint`, dan `npm run build` dijalankan dari root. Vite membaca source dari `frontend/` dan menulis hasil produksi ke `dist/`.
+
+## Perubahan Struktur
+
+- `src/` dipindahkan menjadi `frontend/src/`.
+- Halaman publik dipusatkan di `frontend/src/pages/public/`; halaman admin tetap di `frontend/src/pages/admin/`.
+- `KegiatanList.jsx` menjadi `Kegiatan.jsx`; `Artikel.jsx` menjadi halaman daftar artikel dan `ArtikelDetail.jsx` tetap menjadi halaman detail.
+- PHP dipindahkan dari `public/api` ke `backend/api`.
+- `config.php` menjadi `backend/config/database.php`.
+- `schema.sql` menjadi `database/schema.sql`.
+- Request frontend dipisahkan ke `frontend/src/services/` (`api.js`, `artikelService.js`, `kegiatanService.js`, dan `authService.js`).
+- `dist/` hanya dibuat oleh proses build dan tidak menjadi source backend.
+
+## Menjalankan Development
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Build untuk cPanel
+Jika PHP belum tersedia, frontend memakai `localStorage` sebagai fallback. Saat API aktif, data artikel dan kegiatan diambil dari MySQL melalui PHP.
 
-Jalankan perintah berikut dari folder proyek:
+## API PHP
+
+```text
+GET/POST/DELETE /api/articles.php
+GET/POST/DELETE /api/activities.php
+GET/POST/DELETE /api/auth.php
+```
+
+`articles.php` juga menangani upload gambar ke `uploads/articles/`. Endpoint memuat konfigurasi dari `backend/config/database.php`.
+
+## Database
+
+1. Buat database dan user melalui **cPanel > MySQL Databases**.
+2. Beri user hak akses pada database.
+3. Import `database/schema.sql` melalui phpMyAdmin.
+4. Sesuaikan `DB_NAME`, `DB_USER`, `DB_PASS`, dan password admin di `backend/config/database.php`.
+
+Schema dipertahankan sesuai tabel yang saat ini digunakan: `articles` dan `activities`.
+
+## Build dan Deployment cPanel
 
 ```bash
-npm install
 npm run lint
 npm run build
 ```
 
-Setelah selesai, folder `dist` akan dibuat. Upload **isi folder `dist`**, bukan folder `dist`-nya, ke folder hosting:
+Upload isi `dist/` ke `public_html/`, lalu salin backend sehingga targetnya menjadi:
 
 ```text
 public_html/
-├── .htaccess
 ├── index.html
-└── assets/
+├── assets/
+├── .htaccess
+├── api/
+│   ├── articles.php
+│   ├── activities.php
+│   └── auth.php
+├── config/
+│   └── database.php
+└── uploads/articles/
 ```
 
-### Upload melalui cPanel
+Salin `backend/api/` ke `public_html/api/`, `backend/config/` ke `public_html/config/`, dan `backend/uploads/` ke `public_html/uploads/`. Pastikan `.htaccess` frontend berada langsung di `public_html/`, folder upload dapat ditulis server, serta `.htaccess` konfigurasi ikut disalin agar file database tidak dapat diakses langsung.
 
-1. Buka **cPanel > File Manager**.
-2. Masuk ke folder `public_html` atau document root domain.
-3. Hapus file website lama jika memang sudah tidak digunakan.
-4. Upload isi folder `dist` dalam bentuk ZIP.
-5. Extract ZIP di `public_html`.
-6. Pastikan `.htaccess` berada langsung di dalam `public_html`.
-7. Buka domain dan uji `/`, `/profil`, serta `/admin`.
-
-`.htaccess` diperlukan supaya route React Router tetap terbuka saat halaman di-refresh atau URL dibuka langsung.
-
-## Login admin demo
-
-```text
-Username: admin
-Password: admin123
-```
-
-## Menghubungkan database MySQL cPanel
-
-API PHP berada di `public/api` dan otomatis ikut masuk ke `dist/api` saat build.
-
-1. Di cPanel buka **MySQL Databases**.
-2. Buat database dan user MySQL, lalu beri user hak akses **All Privileges**.
-3. Buka **phpMyAdmin**, pilih database tersebut, lalu import file `dist/api/schema.sql`.
-4. Edit `dist/api/config.php` sebelum upload dan isi:
-
-```php
-const DB_NAME = 'prefix_nama_database';
-const DB_USER = 'prefix_nama_user';
-const DB_PASS = 'password_database';
-const ADMIN_PASS = 'password_admin_yang_kuat';
-```
-
-5. Upload isi `dist` ke `public_html`.
-6. Pastikan file `public_html/api/.htaccess` ikut ter-upload.
-7. Pastikan folder `public_html/api/uploads/articles` memiliki permission `755` atau `775` jika server membutuhkan izin tulis.
-8. Login melalui `/admin` dan coba tambah artikel/kegiatan.
-
-Saat API dan database berhasil tersambung, CRUD memakai MySQL bersama sehingga perubahan dapat dilihat semua pengunjung. Jika API belum aktif, aplikasi otomatis memakai `localStorage` sebagai fallback development.
-
-Untuk keamanan, ganti `ADMIN_PASS` sebelum publikasi dan jangan membagikan isi `config.php`.
-
-### Membuat ZIP siap upload
-
-Dari root proyek (`sdn-turi-2`), jalankan:
-
-```powershell
-Remove-Item .\dist-upload.zip -ErrorAction SilentlyContinue
-Compress-Archive -Path .\dist\* -DestinationPath .\dist-upload.zip
-```
-
-Upload `dist-upload.zip` ke `public_html`, lalu pilih **Extract**. File `.htaccess` tersembunyi tetap harus dipastikan ikut ada di document root.
-
-Jika build dijalankan dari folder `D:\SDN Turi 2`, masuk dulu ke folder proyek:
-
-```powershell
-Set-Location .\sdn-turi-2
-npm run build
-```
-
-## Deploy ke subfolder
-
-Jika website dipasang di `domain.com/sekolah/`, bukan di root domain, konfigurasi `base` Vite dan `basename` React Router harus disesuaikan dengan `/sekolah/`. Untuk instalasi termudah, gunakan document root domain atau subdomain sehingga website berada di root (`domain.com`).
+Source `frontend/`, `backend/`, dan `database/` tidak perlu diunggah sebagai satu folder development. Login demo: `admin` / `admin123`; ganti password sebelum publikasi.

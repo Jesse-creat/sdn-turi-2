@@ -1,0 +1,3 @@
+<FilesMatch "database\.php">
+  Require all denied
+</FilesMatch>

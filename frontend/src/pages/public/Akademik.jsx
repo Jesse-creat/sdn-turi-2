@@ -1,6 +1,6 @@
-import CardEkskul from '../components/CardEkskul.jsx'
-import CardPrestasi from '../components/CardPrestasi.jsx'
-import { ekstrakurikuler, prestasi } from '../data/schoolData.js'
+import CardEkskul from '../../components/CardEkskul.jsx'
+import CardPrestasi from '../../components/CardPrestasi.jsx'
+import { ekstrakurikuler, prestasi } from '../../data/schoolData.js'
 
 function Akademik() {
   const activities = ekstrakurikuler.map((item) => ({ title: item.nama, description: item.deskripsi }))

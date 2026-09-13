@@ -1,5 +1,5 @@
-import CardFasilitas from '../components/CardFasilitas.jsx'
-import { fasilitas } from '../data/schoolData.js'
+import CardFasilitas from '../../components/CardFasilitas.jsx'
+import { fasilitas } from '../../data/schoolData.js'
 
 function Fasilitas() {
   const facilities = fasilitas.map((item) => ({ title: item.nama, description: item.deskripsi, isUnggulan: item.isUnggulan }))

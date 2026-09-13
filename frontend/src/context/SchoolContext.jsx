@@ -1,8 +1,8 @@
 import { createContext, useContext, useEffect, useState } from 'react'
+import { getArticles, saveArticle as saveArticleApi, deleteArticle as deleteArticleApi } from '../services/artikelService.js'
+import { getActivities, saveActivity as saveActivityApi, deleteActivity as deleteActivityApi } from '../services/kegiatanService.js'
 
 const SchoolContext = createContext(null)
-const API = '/api'
-
 const initialArticles = [
   { id: 1, title: 'Membaca Membuka Jendela Dunia', excerpt: 'Gerakan literasi sekolah hadir setiap pagi untuk menumbuhkan kebiasaan membaca.', date: '10 September 2026' },
   { id: 2, title: 'Semangat Belajar di Awal Tahun', excerpt: 'Siswa dan guru menyambut tahun ajaran baru dengan energi dan harapan.', date: '24 Juli 2026' },
@@ -22,13 +22,6 @@ function readStored(key, fallback) {
   }
 }
 
-async function request(path, options = {}) {
-  const response = await fetch(`${API}/${path}`, { credentials: 'include', ...options })
-  const data = await response.json().catch(() => ({}))
-  if (!response.ok) throw new Error(data.error || 'Permintaan ke server gagal.')
-  return data
-}
-
 export function SchoolProvider({ children }) {
   const [articles, setArticles] = useState(() => readStored('sdn-articles', initialArticles))
   const [activities, setActivities] = useState(() => readStored('sdn-activities', initialActivities))
@@ -36,7 +29,7 @@ export function SchoolProvider({ children }) {
 
   useEffect(() => {
     let mounted = true
-    Promise.all([request('articles.php'), request('activities.php')]).then(([serverArticles, serverActivities]) => {
+    Promise.all([getArticles(), getActivities()]).then(([serverArticles, serverActivities]) => {
       if (!mounted) return
       setArticles(serverArticles)
       setActivities(serverActivities)
@@ -49,7 +42,7 @@ export function SchoolProvider({ children }) {
 
   const saveArticle = async (article) => {
     if (apiMode) {
-      const saved = await request('articles.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(article) })
+      const saved = await saveArticleApi(article)
       setArticles((current) => article.id ? current.map((item) => item.id === article.id ? saved : item) : [saved, ...current])
       return saved
     }
@@ -60,7 +53,7 @@ export function SchoolProvider({ children }) {
   }
 
   const deleteArticle = async (id) => {
-    if (apiMode) await request('articles.php', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) })
+    if (apiMode) await deleteArticleApi(id)
     const next = articles.filter((article) => article.id !== id)
     window.localStorage.setItem('sdn-articles', JSON.stringify(next))
     setArticles(next)
@@ -68,7 +61,7 @@ export function SchoolProvider({ children }) {
 
   const saveActivity = async (activity) => {
     if (apiMode) {
-      const saved = await request('activities.php', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(activity) })
+      const saved = await saveActivityApi(activity)
       setActivities((current) => activity.id ? current.map((item) => item.id === activity.id ? saved : item) : [saved, ...current])
       return saved
     }
@@ -79,7 +72,7 @@ export function SchoolProvider({ children }) {
   }
 
   const deleteActivity = async (id) => {
-    if (apiMode) await request('activities.php', { method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id }) })
+    if (apiMode) await deleteActivityApi(id)
     const next = activities.filter((activity) => activity.id !== id)
     window.localStorage.setItem('sdn-activities', JSON.stringify(next))
     setActivities(next)

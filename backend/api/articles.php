@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/config.php';
+require __DIR__ . '/../config/database.php';
 startApiSession();
 $method = $_SERVER['REQUEST_METHOD'];
 
@@ -27,11 +27,11 @@ if ($method === 'POST') {
             respond(['error' => 'Gambar tidak valid atau lebih besar dari 2 MB.'], 422);
         }
         $extension = $match[1] === 'jpeg' ? 'jpg' : $match[1];
-        $directory = __DIR__ . '/uploads/articles';
+        $directory = __DIR__ . '/../uploads/articles';
         if (!is_dir($directory)) mkdir($directory, 0755, true);
         $filename = bin2hex(random_bytes(12)) . '.' . $extension;
         file_put_contents($directory . '/' . $filename, $binary);
-        $imageUrl = 'api/uploads/articles/' . $filename;
+        $imageUrl = 'uploads/articles/' . $filename;
     }
 
     if (!empty($body['id'])) {

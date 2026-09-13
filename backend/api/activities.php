@@ -1,5 +1,5 @@
 <?php
-require __DIR__ . '/config.php';
+require __DIR__ . '/../config/database.php';
 $method = $_SERVER['REQUEST_METHOD'];
 
 if ($method === 'GET') {

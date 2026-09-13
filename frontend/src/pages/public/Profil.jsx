@@ -1,5 +1,5 @@
-import CardGuru from '../components/CardGuru.jsx'
-import { guruAndStaf, profilSekolah } from '../data/schoolData.js'
+import CardGuru from '../../components/CardGuru.jsx'
+import { guruAndStaf, profilSekolah } from '../../data/schoolData.js'
 
 function Profil({ school }) {
   const teachers = guruAndStaf.map((guru) => ({ name: guru.nama, role: guru.jabatan, initials: guru.nama.split(' ').map((word) => word[0]).slice(0, 2).join('') }))
