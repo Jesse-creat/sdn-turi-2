@@ -1,6 +1,6 @@
 import { NavLink, Link } from 'react-router-dom'
 
-function Navbar({ onOpenAdmin }) {
+function Navbar() {
   const links = [['Beranda', '/'], ['Profil', '/profil'], ['Akademik', '/akademik'], ['Fasilitas', '/fasilitas'], ['Artikel', '/artikel'], ['Kegiatan', '/kegiatan']]
 
   return (
@@ -15,7 +15,6 @@ function Navbar({ onOpenAdmin }) {
             {label}
           </NavLink>
         ))}
-        <button className="admin-entry" onClick={onOpenAdmin} type="button">Admin</button>
       </nav>
     </header>
   )
