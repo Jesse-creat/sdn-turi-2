@@ -1,21 +1,263 @@
-import { useNavigate } from 'react-router-dom'
+import { ArrowRight, BookOpen, CalendarRange, GraduationCap, MapPin, Medal, Sparkles, Trophy, Users } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSchool } from '../../context/SchoolContext.jsx'
 
-function Home({ school, onNavigate }) {
+function Home({ school }) {
   const navigate = useNavigate()
+  const { articles, activities } = useSchool()
+
+  const quickInfo = [
+    { icon: GraduationCap, title: 'Pendidikan Berkualitas', description: 'Pembelajaran yang membangun karakter, logika, dan percaya diri.' },
+    { icon: Users, title: 'Guru Profesional', description: 'Tenaga pendidik yang berdedikasi, ramah, dan inspiratif.' },
+    { icon: BookOpen, title: 'Fasilitas Lengkap', description: 'Lingkungan belajar yang nyaman mendukung proses tumbuh kembang siswa.' },
+    { icon: Trophy, title: 'Prestasi Sekolah', description: 'Capaian akademik dan non-akademik yang membanggakan.' },
+  ]
+
+  const featuredArticles = articles.slice(0, 3)
+  const featuredActivities = activities.slice(0, 3)
+
   return (
-    <main>
-      <section className="hero-section">
-        <div>
-          <p className="eyebrow">Selamat datang di</p>
-          <h1>{school.schoolName}</h1>
-          <p className="hero-copy">{school.tagline} Menjadi ruang tumbuh bagi anak-anak untuk belajar, berkarya, dan melangkah dengan percaya diri.</p>
-          <button className="primary-button" onClick={() => onNavigate ? onNavigate('Profil') : navigate('/profil')} type="button">Kenali sekolah kami <span aria-hidden="true">→</span></button>
+    <main className="page-shell bg-slate-50">
+      <section className="hero-pattern relative overflow-hidden bg-school-navy text-white">
+        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-20">
+          <div className="max-w-xl">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.26em] text-yellow-300">Selamat datang di</p>
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{school.schoolName}</h1>
+            <p className="mt-5 text-lg text-slate-200">Membangun generasi cerdas, berkarakter, dan berprestasi.</p>
+            <p className="mt-4 max-w-lg text-base leading-8 text-slate-300">
+              Sekolah yang mendukung lingkungan belajar berkualitas dengan semangat inovasi, kebersamaan, dan pengembangan potensi siswa sejak dini.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-4">
+              <button type="button" onClick={() => navigate('/profil')} className="inline-flex items-center rounded-xl bg-school-yellow px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300">Tentang Sekolah <ArrowRight className="ml-2 h-4 w-4" /></button>
+              <button type="button" onClick={() => navigate('/artikel')} className="inline-flex items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Lihat Berita</button>
+            </div>
+          </div>
+
+          <div className="relative">
+            <div className="overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
+              <img
+                alt="Siswa SDN Turi 2 belajar bersama"
+                className="h-[500px] w-full object-cover"
+                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80"
+              />
+            </div>
+            <div className="absolute -bottom-6 left-4 right-4 rounded-2xl border border-white/10 bg-white/10 p-4 backdrop-blur-md">
+              <div className="flex items-center justify-between gap-3 text-white">
+                <div>
+                  <div className="text-xs uppercase tracking-[0.2em] text-slate-200">Prestasi</div>
+                  <div className="mt-1 text-lg font-semibold">Berprestasi dan berkarakter</div>
+                </div>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-school-yellow text-slate-900">
+                  <Sparkles className="h-5 w-5" />
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div className="hero-note"><span>01</span><strong>Belajar dengan gembira, bertumbuh bersama.</strong></div>
       </section>
-      <section className="welcome-section page-section">
-        <div><p className="eyebrow">Sambutan</p><h2>Setiap anak punya cerita untuk ditumbuhkan.</h2></div>
-        <p>Kami percaya pendidikan yang baik dimulai dari lingkungan yang aman, hangat, dan mendorong rasa ingin tahu. Bersama keluarga, kami mendampingi setiap langkah kecil menuju masa depan.</p>
+
+      <section className="relative z-10 -mt-8 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-4 rounded-[2rem] bg-school-navy p-5 text-white shadow-2xl md:grid-cols-2 xl:grid-cols-4">
+          {quickInfo.map(({ icon: Icon, title, description }) => (
+            <div key={title} className="rounded-2xl border border-white/10 bg-white/5 p-5">
+              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-school-yellow text-slate-900">
+                <Icon className="h-5 w-5" />
+              </div>
+              <h3 className="text-xl font-semibold text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-300">{description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="grid items-center gap-10 lg:grid-cols-2">
+          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-sm">
+            <img
+              alt="Kepala sekolah SDN Turi 2"
+              className="h-[460px] w-full rounded-[1.5rem] object-cover"
+              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80"
+            />
+          </div>
+          <div>
+            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Sambutan kepala sekolah</p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Selamat datang di SDN Turi 2</h2>
+            <p className="mt-6 text-base leading-8 text-slate-600">
+              {school.tagline} Kami berkomitmen menciptakan lingkungan belajar yang menumbuhkan semangat, kreativitas, dan karakter siswa. Setiap proses belajar di sekolah ini didesain agar anak-anak dapat tumbuh menjadi pribadi yang mandiri, berakhlak mulia, dan siap menghadapi masa depan.
+            </p>
+            <p className="mt-5 text-base leading-8 text-slate-600">
+              Dengan kolaborasi antara guru, orang tua, dan masyarakat, kami terus mengembangkan pembelajaran yang inovatif dan menyenangkan untuk menumbuhkan rasa ingin tahu serta prestasi siswa.
+            </p>
+            <div className="mt-8 flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+              <div>
+                <div className="font-semibold text-slate-900">{school.schoolName}</div>
+                <div className="text-sm text-slate-500">Kepala Sekolah</div>
+              </div>
+              <Link to="/profil" className="inline-flex items-center rounded-xl bg-blue-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-700">Baca Selengkapnya <ArrowRight className="ml-2 h-4 w-4" /></Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="bg-white py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 flex items-end justify-between gap-4">
+            <div>
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Berita terbaru</p>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Informasi sekolah</h2>
+            </div>
+            <Link to="/artikel" className="hidden text-sm font-semibold text-blue-700 hover:text-blue-800 md:inline-flex">Lihat semua <ArrowRight className="ml-2 h-4 w-4" /></Link>
+          </div>
+
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            {featuredArticles.length ? featuredArticles.map((article) => (
+              <article key={article.id} className="group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+                <div className="overflow-hidden">
+                  <img
+                    alt={article.title}
+                    className="image-zoom h-56 w-full object-cover"
+                    src={article.image || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80'}
+                  />
+                </div>
+                <div className="p-5">
+                  <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                    <CalendarRange className="h-3.5 w-3.5 text-yellow-500" />
+                    {article.date}
+                  </div>
+                  <h3 className="text-xl font-semibold text-slate-900">{article.title}</h3>
+                  <p className="mt-3 text-sm leading-7 text-slate-600">{article.excerpt}</p>
+                  <Link to={`/artikel/${article.id}`} className="mt-5 inline-flex items-center font-semibold text-blue-700">Baca Selengkapnya <ArrowRight className="ml-2 h-4 w-4" /></Link>
+                </div>
+              </article>
+            )) : (
+              <div className="col-span-full rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-600">
+                Belum ada data berita tersedia saat ini.
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mb-10 text-center">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Program unggulan</p>
+          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Pengembangan siswa holistik</h2>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+          {[
+            ['Pendidikan Berkualitas', 'Pembelajaran yang merangsang rasa ingin tahu, kreativitas, dan kecakapan abad ke-21.', GraduationCap],
+            ['Pengembangan Kreativitas', 'Mendorong siswa mengekspresikan bakat melalui seni, literasi, dan kegiatan kolaboratif.', Sparkles],
+            ['Prestasi Siswa', 'Membina semangat berkompetisi dengan etika, disiplin, dan sportivitas.', Medal],
+            ['Pendidikan Karakter', 'Menanamkan akhlak mulia, kerja sama, dan kepedulian terhadap lingkungan.', Users],
+          ].map(([title, description, Icon]) => (
+            <div key={title} className="card-hover rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
+                <Icon className="h-7 w-7" />
+              </div>
+              <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
+              <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="bg-gradient-to-r from-blue-700 to-blue-900 py-20 text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">Prestasi sekolah</p>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Membanggakan melalui karya dan semangat belajar</h2>
+              <p className="mt-4 text-base leading-8 text-blue-100">
+                SDN Turi 2 terus membangun semangat berprestasi dalam berbagai bidang akademik maupun non-akademik untuk masa depan yang lebih cerah.
+              </p>
+            </div>
+            <div className="grid gap-4 sm:grid-cols-3">
+              {[
+                ['24+', 'Kegiatan'],
+                ['15', 'Prestasi'],
+                ['90%', 'Siswa aktif'],
+              ].map(([value, label]) => (
+                <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
+                  <div className="text-3xl font-bold text-yellow-300">{value}</div>
+                  <div className="mt-1 text-sm text-blue-100">{label}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="mb-10 flex items-end justify-between gap-4">
+          <div>
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Kegiatan sekolah</p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Agenda belajar dan berkarya</h2>
+          </div>
+          <Link to="/kegiatan" className="hidden text-sm font-semibold text-blue-700 hover:text-blue-800 md:inline-flex">Lihat semua <ArrowRight className="ml-2 h-4 w-4" /></Link>
+        </div>
+
+        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+          {featuredActivities.length ? featuredActivities.map((activity) => (
+            <article key={activity.id} className="card-hover overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm">
+              <img alt={activity.title} className="h-52 w-full object-cover" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" />
+              <div className="p-5">
+                <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                  <CalendarRange className="h-3.5 w-3.5 text-yellow-500" />
+                  {activity.date}
+                </div>
+                <h3 className="text-xl font-semibold text-slate-900">{activity.title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{activity.description}</p>
+                <div className="mt-4 flex items-center gap-2 text-sm font-medium text-slate-500">
+                  <MapPin className="h-4 w-4 text-blue-600" />
+                  {activity.location}
+                </div>
+              </div>
+            </article>
+          )) : (
+            <div className="col-span-full rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-8 text-center text-slate-600">
+              Belum ada data kegiatan tersedia saat ini.
+            </div>
+          )}
+        </div>
+      </section>
+
+      <section className="bg-slate-100 py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mb-10 text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Galeri</p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Moment pembelajaran dan kebersamaan</h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=900&q=80',
+              'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=900&q=80',
+              'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80',
+              'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
+            ].map((image, index) => (
+              <div key={image} className="group relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm">
+                <img alt={`Galeri sekolah ${index + 1}`} className="image-zoom h-64 w-full object-cover" src={image} />
+                <div className="absolute inset-0 bg-slate-950/20 opacity-0 transition group-hover:opacity-100" />
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-slate-900">
+                    <ArrowRight className="h-5 w-5" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="rounded-[2rem] bg-gradient-to-r from-school-navy to-blue-900 p-8 text-white shadow-xl sm:p-12">
+          <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">Bergabung bersama kami</p>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Mari membangun generasi yang cerdas, berkarakter, dan berprestasi.</h2>
+            </div>
+            <button type="button" onClick={() => navigate('/kontak')} className="inline-flex items-center justify-center rounded-xl bg-school-yellow px-6 py-3.5 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300">Hubungi Kami <ArrowRight className="ml-2 h-4 w-4" /></button>
+          </div>
+        </div>
       </section>
     </main>
   )

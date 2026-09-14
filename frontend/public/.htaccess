@@ -1,8 +1,13 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
   RewriteBase /
+  Options -MultiViews
+  DirectoryIndex index.html
 
-  # Biarkan file asset dan file nyata dilayani langsung.
+  # Jangan arahkan endpoint API ke React.
+  RewriteRule ^api(?:/|$) - [L]
+
+  # Biarkan file asset dan folder nyata dilayani langsung.
   RewriteCond %{REQUEST_FILENAME} -f [OR]
   RewriteCond %{REQUEST_FILENAME} -d
   RewriteRule ^ - [L]

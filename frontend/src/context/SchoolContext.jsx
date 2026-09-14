@@ -16,10 +16,18 @@ const initialActivities = [
 function readStored(key, fallback) {
   try {
     const stored = window.localStorage.getItem(key)
-    return stored ? JSON.parse(stored) : fallback
+    const parsed = stored ? JSON.parse(stored) : fallback
+    return normalizeList(parsed, fallback)
   } catch {
     return fallback
   }
+}
+
+function normalizeList(value, fallback) {
+  if (Array.isArray(value)) return value
+  if (value && Array.isArray(value.data)) return value.data
+  if (value && Array.isArray(value.items)) return value.items
+  return fallback
 }
 
 export function SchoolProvider({ children }) {
@@ -31,8 +39,8 @@ export function SchoolProvider({ children }) {
     let mounted = true
     Promise.all([getArticles(), getActivities()]).then(([serverArticles, serverActivities]) => {
       if (!mounted) return
-      setArticles(serverArticles)
-      setActivities(serverActivities)
+      setArticles(normalizeList(serverArticles, initialArticles))
+      setActivities(normalizeList(serverActivities, initialActivities))
       setApiMode(true)
     }).catch(() => {
       // Development tanpa PHP memakai localStorage sebagai fallback.

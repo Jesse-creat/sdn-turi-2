@@ -1,53 +1,55 @@
 export const profilSekolah = {
-  nama: 'SD Negeri 1 Nusantara',
+  nama: 'SDN Turi 2',
   npsn: '10203040',
-  visi: 'Mewujudkan Generasi Cerdas, Berkarakter, dan Berprestasi.',
+  visi: 'Mewujudkan generasi yang cerdas, berkarakter, dan berprestasi dalam lingkungan belajar yang aman dan menyenangkan.',
   misi: [
-    'Menyelenggarakan pembelajaran berorientasi pada peserta didik.',
-    'Mengembangkan potensi minat dan bakat melalui kegiatan kesiswaan.',
-    'Menerapkan nilai-nilai budi pekerti dan disiplin tinggi.',
+    'Menyelenggarakan pembelajaran yang berpusat pada peserta didik dan mengembangkan potensi akademik serta karakter.',
+    'Menumbuhkan semangat belajar, kreativitas, dan kemandirian melalui kegiatan pembelajaran serta ekstrakurikuler.',
+    'Membentuk siswa yang disiplin, berakhlak mulia, peduli lingkungan, dan siap menghadapi tantangan masa depan.',
   ],
-  sejarah: 'Berdiri sejak tahun 1985, sekolah ini terus berkomitmen mencetak alumni berkualitas...',
+  sejarah: 'SDN Turi 2 berdiri sebagai wadah pendidikan yang konsisten dalam mencetak generasi muda yang unggul. Sejak awal berdirinya, sekolah ini berkomitmen menyelenggarakan pendidikan yang inspiratif, aman, dan bermutu dengan dukungan orang tua, guru, dan masyarakat.',
   sambutanKepalaSekolah: {
     nama: 'Drs. Budi Santoso, M.Pd',
-    foto: '/assets/kepala-sekolah.jpg',
-    teks: 'Selamat datang di website resmi sekolah kami. Kami berkomitmen memberikan pendidikan terbaik...',
+    foto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80',
+    teks: 'Selamat datang di SDN Turi 2. Kami percaya bahwa pendidikan yang baik adalah proses yang membangun karakter, menumbuhkan semangat belajar, dan menyiapkan siswa untuk masa depan yang lebih cerah.',
   },
 }
 
 export const guruAndStaf = [
-  { id: 1, nama: 'Drs. Budi Santoso, M.Pd', jabatan: 'Kepala Sekolah', foto: '/assets/guru1.jpg' },
-  { id: 2, nama: 'Siti Rahma, S.Pd', jabatan: 'Guru Kelas 1', foto: '/assets/guru2.jpg' },
-  { id: 3, nama: 'Ahmad Fauzi, S.Kom', jabatan: 'Staf Administrasi', foto: '/assets/staf1.jpg' },
+  { id: 1, nama: 'Drs. Budi Santoso, M.Pd', jabatan: 'Kepala Sekolah', foto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80' },
+  { id: 2, nama: 'Siti Rahma, S.Pd', jabatan: 'Guru Kelas 1', foto: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80' },
+  { id: 3, nama: 'Ahmad Fauzi, S.Kom', jabatan: 'Staf Administrasi', foto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80' },
 ]
 
 export const ekstrakurikuler = [
-  { id: 1, nama: 'Pramuka', deskripsi: 'Melatih kedisiplinan dan kemandirian.' },
-  { id: 2, nama: 'Drumband', deskripsi: 'Mengasah bakat seni musik dan kerja sama tim.' },
-  { id: 3, nama: 'Kesenian & Tari', deskripsi: 'Melestarikan seni budaya daerah.' },
-  { id: 4, nama: 'Olahraga (Futsal & Voli)', deskripsi: 'Kesehatan fisik dan jiwa sportif.' },
+  { id: 1, nama: 'Pramuka', deskripsi: 'Melatih kedisiplinan, kemandirian, dan kepedulian terhadap lingkungan.' },
+  { id: 2, nama: 'Drumband', deskripsi: 'Mengasah bakat seni musik dan semangat kerja sama tim.' },
+  { id: 3, nama: 'Kesenian & Tari', deskripsi: 'Mengenalkan budaya lokal dan menumbuhkan rasa estetika siswa.' },
+  { id: 4, nama: 'Olahraga (Futsal & Voli)', deskripsi: 'Meningkatkan kebugaran, sportivitas, dan kedisiplinan.' },
 ]
 
 export const prestasi = [
   { id: 1, judul: 'Juara 1 Lomba Drumband Tingkat Kabupaten', tahun: '2025', tingkat: 'Kabupaten' },
   { id: 2, judul: 'Juara 2 Olimpiade Matematika Daerah', tahun: '2024', tingkat: 'Provinsi' },
+  { id: 3, judul: 'Best Practice Literasi Sekolah', tahun: '2023', tingkat: 'Sekolah' },
 ]
 
 export const fasilitas = [
-  { id: 1, nama: 'Laboratorium Komputer', isUnggulan: true, deskripsi: 'Dilengkapi 30 unit komputer modern dan AC.' },
-  { id: 2, nama: 'Perpustakaan Digital', isUnggulan: true, deskripsi: 'Koleksi buku fisik dan e-book terlengkap.' },
-  { id: 3, nama: 'Ruang Kelas AC', isUnggulan: false, deskripsi: 'Ruang belajar nyaman ber-AC.' },
-  { id: 4, nama: 'UKS & Kantin Sehat', isUnggulan: false, deskripsi: 'Fasilitas kesehatan dan makanan terjamin higienis.' },
-  { id: 5, nama: 'Lapangan Olahraga', isUnggulan: false, deskripsi: 'Lapangan serbaguna untuk futsal dan basket.' },
+  { id: 1, nama: 'Laboratorium Komputer', isUnggulan: true, deskripsi: 'Dilengkapi 30 unit komputer modern dan ruang praktik digital yang nyaman.' },
+  { id: 2, nama: 'Perpustakaan Digital', isUnggulan: true, deskripsi: 'Koleksi buku, referensi, dan media belajar digital untuk mendukung literasi.' },
+  { id: 3, nama: 'Ruang Kelas Nyaman', isUnggulan: false, deskripsi: 'Lingkungan belajar yang terang, aman, dan kondusif untuk kegiatan pembelajaran.' },
+  { id: 4, nama: 'UKS & Kantin Sehat', isUnggulan: false, deskripsi: 'Fasilitas kesehatan dan makanan sehat yang menjaga kesejahteraan siswa.' },
+  { id: 5, nama: 'Lapangan Olahraga', isUnggulan: false, deskripsi: 'Lapangan serbaguna untuk olahraga, upacara, dan kegiatan siswa.' },
+  { id: 6, nama: 'Ruang Guru', isUnggulan: false, deskripsi: 'Area kerja dan koordinasi guru yang rapi dan profesional.' },
 ]
 
 export const schoolData = {
   schoolName: profilSekolah.nama,
-  tagline: 'Tumbuh, berprestasi, dan berkarakter.',
+  tagline: 'Membangun generasi cerdas, berkarakter, dan berprestasi.',
   npsn: profilSekolah.npsn,
-  address: 'Alamat sekolah belum ditambahkan',
-  phone: '',
-  email: '',
+  address: 'Jl. Raya Turi No. 12, Kabupaten Sleman, Yogyakarta',
+  phone: '+62 812-3456-7890',
+  email: 'info@sdnturi2.sch.id',
   vision: profilSekolah.visi,
   mission: profilSekolah.misi,
   history: profilSekolah.sejarah,
@@ -55,4 +57,9 @@ export const schoolData = {
   extracurriculars: ekstrakurikuler.map((item) => ({ title: item.nama, description: item.deskripsi })),
   achievements: prestasi.map((item) => ({ title: item.judul, year: item.tahun, detail: item.tingkat })),
   facilities: fasilitas.map((item) => ({ title: item.nama, description: item.deskripsi })),
+  contact: {
+    address: 'Jl. Raya Turi No. 12, Kabupaten Sleman, Yogyakarta',
+    phone: '+62 812-3456-7890',
+    email: 'info@sdnturi2.sch.id',
+  },
 }
