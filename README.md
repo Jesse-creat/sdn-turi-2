@@ -94,4 +94,5 @@ public_html/
 
 Salin `backend/api/` ke `public_html/api/`, `backend/config/` ke `public_html/config/`, dan `backend/uploads/` ke `public_html/uploads/`. Pastikan `.htaccess` frontend berada langsung di `public_html/`, folder upload dapat ditulis server, serta `.htaccess` konfigurasi ikut disalin agar file database tidak dapat diakses langsung.
 
-Source `frontend/`, `backend/`, dan `database/` tidak perlu diunggah sebagai satu folder development. Login demo: `admin` / `admin123`; ganti password sebelum publikasi.
+Source `frontend/`, `backend/`, dan `database/` tidak perlu diunggah sebagai satu folder development.
+ANTON SES
