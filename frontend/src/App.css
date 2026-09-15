@@ -32,6 +32,70 @@
     radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.12), transparent 16%);
 }
 
+.hero-photo {
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.hero-photo::after {
+  background: linear-gradient(180deg, transparent 55%, rgba(7, 24, 47, 0.2));
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.hero-copy {
+  text-shadow: 0 2px 14px rgba(2, 12, 27, 0.45);
+}
+
+.hero-copy button {
+  text-shadow: none;
+}
+
+.quick-info-card {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+}
+
+.quick-info-card::before {
+  background: #fbbf24;
+  border-radius: 999px;
+  content: '';
+  height: 3px;
+  left: 1rem;
+  opacity: 0;
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  transform: scaleX(0.4);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.quick-info-card:hover {
+  border-color: #fbbf24;
+  box-shadow: 0 18px 34px rgba(15, 39, 71, 0.24);
+  transform: translateY(-7px);
+}
+
+.quick-info-card:hover::before {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.feature-image img {
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.feature-image:hover img {
+  transform: scale(1.035);
+}
+
+.section-tint {
+  background: linear-gradient(180deg, #f2f6fa 0%, #eaf1f7 100%);
+}
+
 .image-zoom {
   transition: transform 0.35s ease, box-shadow 0.35s ease;
 }

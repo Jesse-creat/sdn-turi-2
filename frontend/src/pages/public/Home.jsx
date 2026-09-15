@@ -36,50 +36,44 @@ function Home({ school }) {
 
   return (
     <main className="page-shell bg-slate-50">
-      <section className="hero-pattern relative overflow-hidden bg-school-navy text-white">
-        <div className="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 lg:grid-cols-[1.15fr_0.85fr] lg:px-8 lg:py-20">
-          <div className="max-w-xl">
+      <section
+        className="hero-photo relative overflow-hidden bg-school-navy text-white"
+        style={{ backgroundImage: "url('/kkn-sdn-turi.png')" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-school-navy/65 to-school-navy/55" />
+        <div className="relative mx-auto flex min-h-[560px] max-w-7xl items-center justify-start px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+          <div className="hero-copy max-w-2xl text-left">
             <p className="reveal-up mb-4 text-sm font-semibold uppercase tracking-[0.26em] text-yellow-300">Selamat datang di</p>
             <h1 className="reveal-up reveal-up-delay-1 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{school.schoolName}</h1>
-            <p className="reveal-up reveal-up-delay-2 mt-5 text-lg text-slate-200">Tempat tumbuh, belajar, dan menemukan percaya diri.</p>
-            <p className="reveal-up reveal-up-delay-2 mt-4 max-w-lg text-base leading-8 text-slate-300">
-              Di SDN Turi 2, setiap anak didampingi untuk mengenali potensinya, menghargai sesama, dan melangkah dengan bekal ilmu serta karakter yang kuat.
+            <p className="reveal-up reveal-up-delay-2 mt-2 text-lg font-semibold text-slate-100">Tempat tumbuh, belajar, dan menemukan percaya diri.</p>
+            <p className="reveal-up reveal-up-delay-2 mt-3 max-w-lg text-base leading-7 text-slate-300">
+              Di SDN Turi 2, setiap anak didampingi untuk mengenali potensinya, menghargai sesama, dan melangkah dengan bekal ilmu serta <span className="whitespace-nowrap">karakter yang kuat.</span>
             </p>
-            <div className="reveal-up reveal-up-delay-3 mt-8 flex flex-wrap gap-4">
+            <div className="reveal-up reveal-up-delay-3 mt-8 flex flex-wrap justify-start gap-4">
               <button type="button" onClick={() => navigate('/profil')} className="inline-flex items-center rounded-xl bg-school-yellow px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300">Tentang Sekolah <ArrowRight className="ml-2 h-4 w-4" /></button>
               <button type="button" onClick={() => navigate('/artikel')} className="inline-flex items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Lihat Berita</button>
-            </div>
-          </div>
-
-          <div className="hero-image-reveal relative">
-            <div className="overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
-              <img
-                alt="Siswa SDN Turi 2 belajar bersama"
-                className="h-[500px] w-full object-cover"
-                src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80"
-              />
             </div>
           </div>
         </div>
       </section>
 
-      <section className="relative z-10 -mt-8 mx-auto max-w-7xl px-4 sm:px-6 lg:-mt-12 lg:px-8">
-        <div className="scroll-reveal grid gap-4 rounded-[2rem] border border-white/10 bg-school-navy p-5 text-white shadow-[0_20px_45px_rgba(15,39,71,0.2)] md:grid-cols-2 xl:grid-cols-4">
+      <section className="relative z-10 -mt-6 mx-auto max-w-7xl px-4 sm:px-6 lg:-mt-4 lg:px-8">
+        <div className="scroll-reveal grid gap-4 text-white md:grid-cols-2 xl:grid-cols-4">
           {quickInfo.map(({ icon: Icon, title, description }, index) => (
-            <div key={title} className={`reveal-up rounded-2xl border border-white/10 bg-white/5 p-5${index > 0 ? ` reveal-up-delay-${Math.min(index, 3)}` : ''}`}>
-              <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-school-yellow text-slate-900">
+            <div key={title} className={`quick-info-card reveal-up rounded-2xl border border-[#6f98bf] bg-[#285681] p-4 shadow-[0_12px_24px_rgba(15,39,71,0.16)]${index > 0 ? ` reveal-up-delay-${Math.min(index, 3)}` : ''}`}>
+              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-school-yellow text-slate-900">
                 <Icon className="h-5 w-5" />
               </div>
-              <h3 className="text-xl font-semibold text-white">{title}</h3>
-              <p className="mt-2 text-sm leading-6 text-slate-300">{description}</p>
+              <h3 className="text-lg font-semibold text-white">{title}</h3>
+              <p className="mt-2 text-sm leading-6 text-slate-100">{description}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-sm">
+          <div className="feature-image overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-sm">
             <img
               alt="Kepala sekolah SDN Turi 2"
               className="h-[460px] w-full rounded-[1.5rem] object-cover"
@@ -106,7 +100,7 @@ function Home({ school }) {
         </div>
       </section>
 
-      <section className="bg-white py-20">
+      <section className="border-y border-slate-200/70 bg-white py-16">
         <div className="scroll-reveal mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 flex items-end justify-between gap-4">
             <div>
@@ -145,56 +139,58 @@ function Home({ school }) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="scroll-reveal mb-10 text-center">
-          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Program unggulan</p>
-          <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Pengembangan siswa holistik</h2>
-        </div>
-        <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+      <section className="section-tint px-4 py-16 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-7xl">
+          <div className="scroll-reveal mb-10 text-center">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Program unggulan</p>
+            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Pengembangan siswa holistik</h2>
+          </div>
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {[
             ['Pendidikan Berkualitas', 'Pembelajaran yang merangsang rasa ingin tahu, kreativitas, dan kecakapan abad ke-21.', GraduationCap],
             ['Pengembangan Kreativitas', 'Mendorong siswa mengekspresikan bakat melalui seni, literasi, dan kegiatan kolaboratif.', Sparkles],
             ['Prestasi Siswa', 'Membina semangat berkompetisi dengan etika, disiplin, dan sportivitas.', Medal],
             ['Pendidikan Karakter', 'Menanamkan akhlak mulia, kerja sama, dan kepedulian terhadap lingkungan.', Users],
-          ].map(([title, description, Icon]) => (
-            <div key={title} className="scroll-reveal card-hover rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
-              <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
-                <Icon className="h-7 w-7" />
-              </div>
-              <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
-              <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="bg-gradient-to-r from-blue-700 to-blue-900 py-20 text-white">
-        <div className="scroll-reveal mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-2xl">
-              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">Prestasi sekolah</p>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Membanggakan melalui karya dan semangat belajar</h2>
-              <p className="mt-4 text-base leading-8 text-blue-100">
-                SDN Turi 2 terus membangun semangat berprestasi dalam berbagai bidang akademik maupun non-akademik untuk masa depan yang lebih cerah.
-              </p>
-            </div>
-            <div className="grid gap-4 sm:grid-cols-3">
-              {[
-                ['24+', 'Kegiatan'],
-                ['15', 'Prestasi'],
-                ['90%', 'Siswa aktif'],
-              ].map(([value, label]) => (
-                <div key={label} className="rounded-2xl border border-white/10 bg-white/5 p-5 text-center">
-                  <div className="text-3xl font-bold text-yellow-300">{value}</div>
-                  <div className="mt-1 text-sm text-blue-100">{label}</div>
+            ].map(([title, description, Icon]) => (
+              <div key={title} className="scroll-reveal card-hover rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
+                <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
+                  <Icon className="h-7 w-7" />
                 </div>
-              ))}
-            </div>
+                <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
+                <p className="mt-3 text-sm leading-7 text-slate-600">{description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+      <section className="bg-school-navy py-16 text-white">
+        <div className="scroll-reveal mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+            <div className="max-w-2xl">
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">Prestasi sekolah</p>
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Membanggakan melalui karya dan semangat belajar</h2>
+              <p className="mt-4 text-base leading-8 text-blue-100">
+                SDN Turi 2 terus membangun semangat berprestasi dalam berbagai bidang akademik maupun non-akademik untuk masa depan yang lebih cerah.
+              </p>
+            </div>
+                  <div className="stats-group grid grid-cols-3 divide-x divide-white/20 rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-sm">
+                    {[
+                      ['24+', 'Kegiatan'],
+                      ['15', 'Prestasi'],
+                      ['90%', 'Siswa aktif'],
+                    ].map(([value, label]) => (
+                      <div key={label} className="px-4 text-center sm:px-6">
+                        <div className="text-3xl font-bold text-yellow-300">{value}</div>
+                        <div className="mt-1 whitespace-nowrap text-xs text-blue-100 sm:text-sm">{label}</div>
+                      </div>
+                    ))}
+                  </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="scroll-reveal mb-10 flex items-end justify-between gap-4">
           <div>
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Kegiatan sekolah</p>
@@ -228,7 +224,7 @@ function Home({ school }) {
         </div>
       </section>
 
-      <section className="bg-slate-100 py-20">
+      <section className="section-tint border-y border-slate-200/70 py-16">
         <div className="scroll-reveal mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-10 text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Galeri</p>
@@ -255,12 +251,12 @@ function Home({ school }) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="scroll-reveal rounded-[2rem] bg-gradient-to-r from-school-navy to-blue-900 p-8 text-white shadow-xl sm:p-12">
+      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="scroll-reveal rounded-[2rem] bg-school-navy p-8 text-white shadow-xl sm:p-12">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             <div className="max-w-2xl">
               <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">Bergabung bersama kami</p>
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Mari membangun generasi yang cerdas, berkarakter, dan berprestasi.</h2>
+              <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">Mari membangun generasi yang cerdas, berkarakter, dan berprestasi.</h2>
             </div>
             <button type="button" onClick={() => navigate('/kontak')} className="inline-flex items-center justify-center rounded-xl bg-school-yellow px-6 py-3.5 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300">Hubungi Kami <ArrowRight className="ml-2 h-4 w-4" /></button>
           </div>
