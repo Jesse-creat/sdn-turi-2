@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { AnimatePresence, motion } from 'motion/react'
 import { BrowserRouter, Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 import Footer from './components/Footer.jsx'
@@ -21,19 +22,62 @@ import AdminLogin from './pages/admin/AdminLogin.jsx'
 import { login as loginAdmin, logout as logoutAdmin } from './services/authService.js'
 
 function PublicLayout() {
+  const location = useLocation()
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' })
+    const sections = document.querySelectorAll('main > section')
+    sections.forEach((section) => {
+      section.classList.add('page-scroll-reveal')
+    })
+
+    let frameId
+    const updateVisibility = () => {
+      frameId = undefined
+      sections.forEach((section) => {
+        const bounds = section.getBoundingClientRect()
+        const isNearViewport = bounds.top < window.innerHeight * 0.88 && bounds.bottom > window.innerHeight * 0.08
+        section.classList.toggle('is-visible', isNearViewport)
+      })
+    }
+    const requestVisibilityUpdate = () => {
+      if (frameId === undefined) frameId = window.requestAnimationFrame(updateVisibility)
+    }
+
+    updateVisibility()
+    window.addEventListener('scroll', requestVisibilityUpdate, { passive: true })
+    window.addEventListener('resize', requestVisibilityUpdate)
+
+    return () => {
+      window.removeEventListener('scroll', requestVisibilityUpdate)
+      window.removeEventListener('resize', requestVisibilityUpdate)
+      if (frameId !== undefined) window.cancelAnimationFrame(frameId)
+    }
+  }, [location.pathname])
+
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800">
       <Navbar />
-      <Routes>
-        <Route path="/" element={<Home school={schoolData} />} />
-        <Route path="/profil" element={<Profil school={schoolData} />} />
-        <Route path="/akademik" element={<Akademik school={schoolData} />} />
-        <Route path="/fasilitas" element={<Fasilitas school={schoolData} />} />
-        <Route path="/artikel" element={<Artikel />} />
-        <Route path="/artikel/:articleId" element={<ArtikelDetail />} />
-        <Route path="/kegiatan" element={<Kegiatan />} />
-        <Route path="/kontak" element={<Kontak school={schoolData} />} />
-      </Routes>
+      <AnimatePresence initial={false} mode="wait">
+        <motion.div
+          key={location.pathname}
+          initial={{ opacity: 0, x: 36, scale: 0.99 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          exit={{ opacity: 0, x: -24, scale: 0.995 }}
+          transition={{ duration: 0.82, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <Routes>
+            <Route path="/" element={<Home school={schoolData} />} />
+            <Route path="/profil" element={<Profil school={schoolData} />} />
+            <Route path="/akademik" element={<Akademik school={schoolData} />} />
+            <Route path="/fasilitas" element={<Fasilitas school={schoolData} />} />
+            <Route path="/artikel" element={<Artikel />} />
+            <Route path="/artikel/:articleId" element={<ArtikelDetail />} />
+            <Route path="/kegiatan" element={<Kegiatan />} />
+            <Route path="/kontak" element={<Kontak school={schoolData} />} />
+          </Routes>
+        </motion.div>
+      </AnimatePresence>
       <Footer school={schoolData} />
     </div>
   )

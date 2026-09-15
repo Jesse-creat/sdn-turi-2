@@ -1,4 +1,4 @@
-import { Menu, Search, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { useState } from 'react'
 import { Link, NavLink } from 'react-router-dom'
 
@@ -16,16 +16,6 @@ function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
-      <div className="bg-school-navy text-white">
-        <div className="mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-3 text-sm sm:px-6 lg:px-8">
-          <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm">
-            <span>+62 812-3456-7890</span>
-            <span className="hidden sm:inline">|</span>
-            <span>info@sdnturi2.sch.id</span>
-          </div>
-        </div>
-      </div>
-
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-3 text-slate-900">
@@ -49,12 +39,6 @@ function Navbar() {
               </NavLink>
             ))}
           </nav>
-
-          <div className="hidden items-center gap-2 lg:flex">
-            <button type="button" className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-700 transition hover:border-blue-200 hover:bg-blue-50 hover:text-blue-700" aria-label="Cari sekolah">
-              <Search className="h-4 w-4" />
-            </button>
-          </div>
 
           <button
             type="button"

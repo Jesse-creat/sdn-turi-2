@@ -8,7 +8,23 @@
 
 .page-shell {
   position: relative;
-  overflow: hidden;
+  overflow-x: clip;
+}
+
+.app-shell {
+  min-height: 100vh;
+  overflow: visible;
+}
+
+.page-scroll-reveal {
+  opacity: 0;
+  transform: translateY(48px) scale(0.98);
+  transition: opacity 0.9s ease, transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.page-scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 .hero-pattern {
@@ -41,6 +57,74 @@
   text-wrap: balance;
 }
 
+.reveal-up {
+  animation: reveal-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.reveal-up-delay-1 {
+  animation-delay: 0.12s;
+}
+
+.reveal-up-delay-2 {
+  animation-delay: 0.22s;
+}
+
+.reveal-up-delay-3 {
+  animation-delay: 0.32s;
+}
+
+.hero-image-reveal {
+  animation: hero-image-reveal 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(34px) scale(0.99);
+  transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes hero-image-reveal {
+  from {
+    opacity: 0;
+    transform: translateX(24px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-up,
+  .hero-image-reveal,
+  .scroll-reveal,
+  .page-scroll-reveal {
+    animation: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+}
+
 .admin-sidebar {
   background: #0f2747;
 }
@@ -60,8 +144,3 @@
   color: #0f2747;
 }
 
-@media (max-width: 768px) {
-  .app-shell {
-    overflow-x: hidden;
-  }
-}

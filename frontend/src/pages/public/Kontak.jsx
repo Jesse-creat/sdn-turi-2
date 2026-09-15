@@ -14,7 +14,7 @@ function Kontak({ school }) {
         <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">Kontak</p>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl">Hubungi SDN Turi 2</h1>
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">Hubungi SDN Turi 2</h1>
           </div>
         </div>
       </section>
