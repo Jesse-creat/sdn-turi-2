@@ -15,7 +15,11 @@ function Footer({ school }) {
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
             <div className="mb-4 flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-xl border border-yellow-300/40 bg-white/10 font-display text-lg font-bold text-yellow-300">SD</div>
+              <img
+                src="/logo-sekolah.png"
+                alt="Logo SDN Turi 2"
+                className="h-11 w-11 rounded-xl border border-yellow-300/40 bg-white/10 object-contain p-1"
+              />
               <div>
                 <div className="text-xl font-bold text-white">{school.schoolName}</div>
               </div>

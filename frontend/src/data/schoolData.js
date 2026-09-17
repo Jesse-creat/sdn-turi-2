@@ -47,7 +47,7 @@ export const schoolData = {
   schoolName: profilSekolah.nama,
   tagline: 'Membangun generasi cerdas, berkarakter, dan berprestasi.',
   npsn: profilSekolah.npsn,
-  address: 'Jl. Raya Turi No. 12, Kabupaten Sleman, Yogyakarta',
+  address: 'Jln. Jur Blawean-Mlati, Desa. Turi, Kecamatan. Panekan, Kabupaten. Magetan',
   phone: '+62 812-3456-7890',
   email: 'info@sdnturi2.sch.id',
   vision: profilSekolah.visi,
@@ -58,7 +58,7 @@ export const schoolData = {
   achievements: prestasi.map((item) => ({ title: item.judul, year: item.tahun, detail: item.tingkat })),
   facilities: fasilitas.map((item) => ({ title: item.nama, description: item.deskripsi })),
   contact: {
-    address: 'Jl. Raya Turi No. 12, Kabupaten Sleman, Yogyakarta',
+    address: 'Jln. Jur Blawean-Mlati, Desa. Turi, Kecamatan. Panekan, Kabupaten. Magetan',
     phone: '+62 812-3456-7890',
     email: 'info@sdnturi2.sch.id',
   },

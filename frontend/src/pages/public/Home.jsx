@@ -261,7 +261,7 @@ function Home({ school }) {
               'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
             ].map((image, index) => (
               <div key={image} className="scroll-reveal group relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm">
-                <img alt={`Galeri sekolah ${index + 1}`} className="image-zoom h-64 w-full object-cover" src={image} />
+                <img alt={`Galeri sekolah ${index + 1}`} className="h-64 w-full scale-100 object-cover transition-transform duration-500 ease-out group-hover:scale-110" src={image} />
                 <div className="absolute inset-0 bg-slate-950/20 opacity-0 transition group-hover:opacity-100" />
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
                   <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-slate-900">
