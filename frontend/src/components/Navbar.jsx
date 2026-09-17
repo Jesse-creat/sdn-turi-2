@@ -19,9 +19,14 @@ function Navbar() {
       <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4">
           <Link to="/" className="flex items-center gap-3 text-slate-900">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-school-navy font-display text-lg font-bold text-white shadow-sm">SD</div>
+            <img
+              src="/logo-sekolah.png"
+              alt="Logo SDN Turi 2"
+              className="h-11 w-11 rounded-xl border border-school-gold bg-white object-contain shadow-sm"
+            />
             <div>
               <div className="text-lg font-bold tracking-tight">SDN Turi 2</div>
+              <div className="text-[11px] font-medium tracking-[0.18em] text-slate-500">SEKOLAH DASAR NEGERI</div>
             </div>
           </Link>
 
@@ -32,7 +37,11 @@ function Navbar() {
                 end={path === '/'}
                 to={path}
                 className={({ isActive }) =>
-                  `rounded-lg px-3 py-2 text-sm font-medium transition ${isActive ? 'bg-blue-50 text-blue-700' : 'text-slate-600 hover:bg-slate-100 hover:text-slate-900'}`
+                  `rounded-full px-4 py-2 text-sm transition ${
+                    isActive
+                      ? 'bg-school-navy font-bold text-white shadow-sm'
+                      : 'font-medium text-slate-600 hover:bg-slate-100 hover:text-slate-900'
+                  }`
                 }
               >
                 {label}
@@ -61,7 +70,7 @@ function Navbar() {
                 to={path}
                 onClick={() => setIsOpen(false)}
                 className={({ isActive }) =>
-                  `rounded-xl px-3 py-3 text-sm font-medium ${isActive ? 'bg-blue-50 text-blue-700' : 'text-slate-700 hover:bg-slate-100'}`
+                  `rounded-xl px-3 py-3 text-sm transition ${isActive ? 'bg-school-navy font-bold text-white' : 'font-medium text-slate-700 hover:bg-slate-100'}`
                 }
               >
                 {label}

@@ -28,8 +28,8 @@
 }
 
 .hero-pattern {
-  background-image: radial-gradient(circle at top left, rgba(251, 191, 36, 0.12), transparent 18%),
-    radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.12), transparent 16%);
+  background-image: radial-gradient(circle at top left, rgba(193, 99, 63, 0.14), transparent 18%),
+    radial-gradient(circle at bottom right, rgba(61, 90, 64, 0.14), transparent 16%);
 }
 
 .hero-photo {
@@ -39,7 +39,7 @@
 }
 
 .hero-photo::after {
-  background: linear-gradient(180deg, transparent 55%, rgba(7, 24, 47, 0.2));
+  background: linear-gradient(180deg, transparent 55%, rgba(31, 38, 24, 0.25));
   content: '';
   inset: 0;
   pointer-events: none;
@@ -47,7 +47,7 @@
 }
 
 .hero-copy {
-  text-shadow: 0 2px 14px rgba(2, 12, 27, 0.45);
+  text-shadow: 0 2px 14px rgba(24, 26, 15, 0.5);
 }
 
 .hero-copy button {
@@ -56,27 +56,27 @@
 
 .quick-info-card {
   position: relative;
-  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .quick-info-card::before {
-  background: #fbbf24;
+  background: #c1633f;
   border-radius: 999px;
   content: '';
-  height: 3px;
+  height: 2px;
   left: 1rem;
-  opacity: 0;
+  opacity: 0.55;
   position: absolute;
   right: 1rem;
   top: 0;
-  transform: scaleX(0.4);
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transform: scaleX(0.55);
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .quick-info-card:hover {
-  border-color: #fbbf24;
-  box-shadow: 0 18px 34px rgba(15, 39, 71, 0.24);
-  transform: translateY(-7px);
+  border-color: rgba(193, 99, 63, 0.55);
+  box-shadow: 0 14px 28px rgba(15, 39, 71, 0.2);
+  transform: translateY(-3px);
 }
 
 .quick-info-card:hover::before {
@@ -93,7 +93,7 @@
 }
 
 .section-tint {
-  background: linear-gradient(180deg, #f2f6fa 0%, #eaf1f7 100%);
+  background: linear-gradient(180deg, #f6f1e4 0%, #f0e8d6 100%);
 }
 
 .image-zoom {
@@ -105,16 +105,17 @@
 }
 
 .soft-shadow {
-  box-shadow: 0 12px 32px rgba(15, 39, 71, 0.08);
+  box-shadow: 0 12px 32px rgba(45, 40, 25, 0.1);
 }
 
 .card-hover {
-  transition: all 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
 .card-hover:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 32px rgba(15, 39, 71, 0.12);
+  border-color: rgba(193, 99, 63, 0.5);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 28px rgba(15, 39, 71, 0.1);
 }
 
 .text-balance {

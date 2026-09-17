@@ -35,15 +35,18 @@ function Home({ school }) {
   const featuredActivities = activities.slice(0, 3)
 
   return (
-    <main className="page-shell bg-slate-50">
+    <main className="page-shell bg-[#faf6ee]">
       <section
         className="hero-photo relative overflow-hidden bg-school-navy text-white"
         style={{ backgroundImage: "url('/kkn-sdn-turi.png')" }}
       >
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-school-navy/65 to-school-navy/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#1c2417]/85 via-school-navy/70 to-school-navy/55" />
         <div className="relative mx-auto flex min-h-[560px] max-w-7xl items-center justify-start px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
           <div className="hero-copy max-w-2xl text-left">
-            <p className="reveal-up mb-4 text-sm font-semibold uppercase tracking-[0.26em] text-yellow-300">Selamat datang di</p>
+            <div className="reveal-up mb-5 flex items-center gap-3">
+              <span className="rule-terracotta" />
+              <p className="text-sm font-semibold uppercase tracking-[0.26em] text-yellow-300">Selamat datang di</p>
+            </div>
             <h1 className="reveal-up reveal-up-delay-1 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">{school.schoolName}</h1>
             <p className="reveal-up reveal-up-delay-2 mt-2 text-lg font-semibold text-slate-100">Tempat tumbuh, belajar, dan menemukan percaya diri.</p>
             <p className="reveal-up reveal-up-delay-2 mt-3 max-w-lg text-base leading-7 text-slate-300">
@@ -51,17 +54,31 @@ function Home({ school }) {
             </p>
             <div className="reveal-up reveal-up-delay-3 mt-8 flex flex-wrap justify-start gap-4">
               <button type="button" onClick={() => navigate('/profil')} className="inline-flex items-center rounded-xl bg-school-yellow px-5 py-3 text-sm font-semibold text-slate-900 transition hover:bg-yellow-300">Tentang Sekolah <ArrowRight className="ml-2 h-4 w-4" /></button>
-              <button type="button" onClick={() => navigate('/artikel')} className="inline-flex items-center rounded-xl border border-white/20 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10">Lihat Berita</button>
+              <button type="button" onClick={() => navigate('/artikel')} className="inline-flex items-center rounded-xl border border-yellow-300/30 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:border-yellow-300/60 hover:bg-white/10">Lihat Berita</button>
             </div>
           </div>
         </div>
+
+        {/* Aksen dekoratif: sulur daun & sparkle, kesan buku cerita */}
+        <svg className="pointer-events-none absolute right-6 top-8 hidden h-24 w-24 text-yellow-300/25 sm:block lg:right-16" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M50 10C30 20 20 40 30 60C40 80 65 85 80 70C60 75 40 65 38 45C36 28 42 16 50 10Z" stroke="currentColor" strokeWidth="2.5" />
+        </svg>
+        <svg className="pointer-events-none absolute left-8 top-1/3 hidden h-10 w-10 text-yellow-300/30 md:block" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 0l1.8 7.2L21 9l-7.2 1.8L12 18l-1.8-7.2L3 9l7.2-1.8L12 0z" />
+        </svg>
+
+        {/* Garis pembatas bergelombang, transisi ke halaman krem */}
+        <svg className="absolute bottom-0 left-0 h-12 w-full text-[#faf6ee]" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M0,32L60,28C120,24,240,16,360,18.7C480,21,600,35,720,40C840,45,960,40,1080,33.3C1200,27,1320,19,1380,16L1440,13V60H0Z" />
+        </svg>
       </section>
 
       <section className="relative z-10 -mt-6 mx-auto max-w-7xl px-4 sm:px-6 lg:-mt-4 lg:px-8">
         <div className="scroll-reveal grid gap-4 text-white md:grid-cols-2 xl:grid-cols-4">
           {quickInfo.map(({ icon: Icon, title, description }, index) => (
-            <div key={title} className={`quick-info-card reveal-up rounded-2xl border border-[#6f98bf] bg-[#285681] p-4 shadow-[0_12px_24px_rgba(15,39,71,0.16)]${index > 0 ? ` reveal-up-delay-${Math.min(index, 3)}` : ''}`}>
-              <div className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-school-yellow text-slate-900">
+            <div key={title} className={`quick-info-card reveal-up rounded-2xl border border-[#7a9660] bg-[#3d5a40] p-4 shadow-[0_12px_24px_rgba(31,38,24,0.2)]${index > 0 ? ` reveal-up-delay-${Math.min(index, 3)}` : ''}`}>
+              <div className="relative mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-school-yellow text-slate-900">
+                <span className="absolute -inset-1.5 rounded-2xl border border-dashed border-white/40" />
                 <Icon className="h-5 w-5" />
               </div>
               <h3 className="text-lg font-semibold text-white">{title}</h3>
@@ -144,6 +161,9 @@ function Home({ school }) {
           <div className="scroll-reveal mb-10 text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Program unggulan</p>
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Pengembangan siswa holistik</h2>
+            <svg className="mx-auto mt-3 h-2.5 w-20 text-yellow-400" viewBox="0 0 72 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 8C10 2 14 2 22 8C30 2 34 2 42 8C50 2 54 2 62 8C66 5 68 5 70 8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
           </div>
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {[
@@ -151,9 +171,9 @@ function Home({ school }) {
             ['Pengembangan Kreativitas', 'Mendorong siswa mengekspresikan bakat melalui seni, literasi, dan kegiatan kolaboratif.', Sparkles],
             ['Prestasi Siswa', 'Membina semangat berkompetisi dengan etika, disiplin, dan sportivitas.', Medal],
             ['Pendidikan Karakter', 'Menanamkan akhlak mulia, kerja sama, dan kepedulian terhadap lingkungan.', Users],
-            ].map(([title, description, Icon]) => (
+            ].map(([title, description, Icon], index) => (
               <div key={title} className="scroll-reveal card-hover rounded-[1.75rem] border border-slate-200 bg-white p-6 shadow-sm">
-                <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
+                <div className={`mb-5 flex h-16 w-16 items-center justify-center rounded-2xl ${index % 2 === 0 ? 'bg-blue-50 text-blue-700' : 'bg-yellow-50 text-yellow-600'}`}>
                   <Icon className="h-7 w-7" />
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900">{title}</h3>
@@ -229,6 +249,9 @@ function Home({ school }) {
           <div className="mb-10 text-center">
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Galeri</p>
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Moment pembelajaran dan kebersamaan</h2>
+            <svg className="mx-auto mt-3 h-2.5 w-20 text-yellow-400" viewBox="0 0 72 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M2 8C10 2 14 2 22 8C30 2 34 2 42 8C50 2 54 2 62 8C66 5 68 5 70 8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+            </svg>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {[
