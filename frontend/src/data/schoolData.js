@@ -1,11 +1,14 @@
 export const profilSekolah = {
   nama: 'SDN Turi 2',
   npsn: '10203040',
-  visi: 'Mewujudkan generasi yang cerdas, berkarakter, dan berprestasi dalam lingkungan belajar yang aman dan menyenangkan.',
+  visi: 'TERWUJUDNYA GENERASI YANG BERIMAN, BERKARAKTER, BERPRESTASI, DAN CINTA LINGKUNGAN',
   misi: [
-    'Menyelenggarakan pembelajaran yang berpusat pada peserta didik dan mengembangkan potensi akademik serta karakter.',
-    'Menumbuhkan semangat belajar, kreativitas, dan kemandirian melalui kegiatan pembelajaran serta ekstrakurikuler.',
-    'Membentuk siswa yang disiplin, berakhlak mulia, peduli lingkungan, dan siap menghadapi tantangan masa depan.',
+    'Membiasakan ibadah dan pembentukan karakter',
+    'Meningkatkan kualitas pembelajaran',
+    'Mengembangkan bakat dan minat siswa',
+    'Mengembangkan literasi dan numerasi',
+    'Meningkatkan pemanfaatan teknologi',
+    'Menjalin kemitraan dengan orang tua',
   ],
   sejarah: 'SDN Turi 2 berdiri sebagai wadah pendidikan yang konsisten dalam mencetak generasi muda yang unggul. Sejak awal berdirinya, sekolah ini berkomitmen menyelenggarakan pendidikan yang inspiratif, aman, dan bermutu dengan dukungan orang tua, guru, dan masyarakat.',
   sambutanKepalaSekolah: {

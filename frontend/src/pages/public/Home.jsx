@@ -120,10 +120,19 @@ function Home({ school }) {
             <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Sambutan kepala sekolah</p>
             <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Selamat datang di SDN Turi 2</h2>
             <p className="mt-6 text-base leading-8 text-slate-600">
-              {school.tagline} Kami berkomitmen menciptakan lingkungan belajar yang menumbuhkan semangat, kreativitas, dan karakter siswa. Setiap proses belajar di sekolah ini didesain agar anak-anak dapat tumbuh menjadi pribadi yang mandiri, berakhlak mulia, dan siap menghadapi masa depan.
+              Assalamualaikum Warrohmatullahi Wabarrakatuh.
             </p>
             <p className="mt-5 text-base leading-8 text-slate-600">
-              Dengan kolaborasi antara guru, orang tua, dan masyarakat, kami terus mengembangkan pembelajaran yang inovatif dan menyenangkan untuk menumbuhkan rasa ingin tahu serta prestasi siswa.
+              Alhamdulillah... Segala puji bagi Allah SWT. Karena dengan limpahan Rahmat, taufik serta hidayahNya kita masih diberikan kenikmatan yang tiada tara sehingga website <strong>SD NEGRI TURI 2 Kecamatan Panekan Kabupaten Magetan</strong> ini bisa hadir, eksis dan aktif dalam rangka memajukan pendidikan sekolah khususnya dan masyarakat pada umumnya.
+            </p>
+            <p className="mt-5 text-base leading-8 text-slate-600">
+              Website sekolah merupakan sebuah layanan web yang hadir sebagai media komunikasi dan interaksi antara sekolah dan masyarakat. Semua pihak yang berkepentingan dengan dunia pendidikan terutama yang berlangsung di sekolah ini seperti guru, tenaga kependidikan, murid, orangtua murid/wali, Komite sekolah, para pejabat dan yang lainnya, dapat mengakses berbagai informasi yang disediakan. Informasi tersebut antara lain tentang profile sekolah, staf pengajar, jenis-jenis ekstrakurikuler, berita sekolah, PPDB dan berbagai informasi penting lainnya. Melalui website ini kami akan mengkomunikasikan bagaimana detak jantung kegiatan sekolah dalam rangka memberikan layanan pendidikan terbaik kepada masyarakat.
+            </p>
+            <p className="mt-5 text-base leading-8 text-slate-600">
+              Akhirnya, kami mengharapkan masukan berupa saran, kritik yang membangun terhadap website ini agar kami terus belajar dan meng-<em>update</em> diri sehingga tampilan, isi, dan mutu website akan terus berkembang lebih baik sekaligus dapat dimanfaatkan dan bermanfaat bagi GTK, siswa, komite sekolah, orang tua/wali siswa, alumni, stake holder berkait, dan masyarakat luas pada umumnya. Aamiin Ya Robbal 'Alamin.
+            </p>
+            <p className="mt-5 text-base leading-8 text-slate-600">
+              Wassalamualaikum Warrohmatullahi Wabarrakatuh.
             </p>
             <div className="mt-8 flex items-center justify-between gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
               <div>
