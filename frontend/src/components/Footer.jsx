@@ -1,6 +1,24 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
 import { Link } from 'react-router-dom'
 
+function YoutubeIcon({ className }) {
+  return (
+    <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.3 3.6-6.3 3.6Z" />
+    </svg>
+  )
+}
+
+function InstagramIcon({ className }) {
+  return (
+    <svg aria-hidden="true" className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+    </svg>
+  )
+}
+
 function Footer({ school }) {
   const navLinks = [
     ['Beranda', '/'],
@@ -55,6 +73,8 @@ function Footer({ school }) {
               <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 text-yellow-300" /> <span>{school.address}</span></li>
               <li className="flex items-start gap-3"><Phone className="mt-0.5 h-4 w-4 text-yellow-300" /> <span>{school.phone}</span></li>
               <li className="flex items-start gap-3"><Mail className="mt-0.5 h-4 w-4 text-yellow-300" /> <span>{school.email}</span></li>
+              <li className="flex items-start gap-3"><YoutubeIcon className="mt-0.5 h-4 w-4 text-yellow-300" /> <a className="transition hover:text-yellow-300" href="https://www.youtube.com/results?search_query=SDN+Turi+2+Magetan" target="_blank" rel="noreferrer">SDN Turi 2 Magetan</a></li>
+              <li className="flex items-start gap-3"><InstagramIcon className="mt-0.5 h-4 w-4 text-yellow-300" /> <a className="transition hover:text-yellow-300" href="https://www.instagram.com/sdnegerituri/" target="_blank" rel="noreferrer">sdnegerituri</a></li>
             </ul>
           </div>
         </div>

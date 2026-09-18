@@ -1,6 +1,6 @@
 export const profilSekolah = {
   nama: 'SDN Turi 2',
-  npsn: '10203040',
+  npsn: '20509429',
   visi: 'TERWUJUDNYA GENERASI YANG BERIMAN, BERKARAKTER, BERPRESTASI, DAN CINTA LINGKUNGAN',
   misi: [
     'Membiasakan ibadah dan pembentukan karakter',
@@ -26,9 +26,12 @@ export const guruAndStaf = [
 
 export const ekstrakurikuler = [
   { id: 1, nama: 'Pramuka', deskripsi: 'Melatih kedisiplinan, kemandirian, dan kepedulian terhadap lingkungan.' },
-  { id: 2, nama: 'Drumband', deskripsi: 'Mengasah bakat seni musik dan semangat kerja sama tim.' },
-  { id: 3, nama: 'Kesenian & Tari', deskripsi: 'Mengenalkan budaya lokal dan menumbuhkan rasa estetika siswa.' },
-  { id: 4, nama: 'Olahraga (Futsal & Voli)', deskripsi: 'Meningkatkan kebugaran, sportivitas, dan kedisiplinan.' },
+  { id: 2, nama: 'Voli', deskripsi: 'Meningkatkan kebugaran, sportivitas, dan kerja sama tim.' },
+  { id: 3, nama: 'Tari', deskripsi: 'Mengembangkan kreativitas, keluwesan, dan kecintaan terhadap budaya.' },
+  { id: 4, nama: 'Hadroh', deskripsi: 'Menumbuhkan kecintaan terhadap seni musik Islami dan kebersamaan.' },
+  { id: 5, nama: 'Drumband', deskripsi: 'Mengasah bakat seni musik, kedisiplinan, dan semangat kerja sama.' },
+  { id: 6, nama: 'Tahfidz Juz amma', deskripsi: "Membiasakan siswa menghafal dan mencintai Al-Qur'an." },
+  { id: 7, nama: 'BTQ', deskripsi: 'Meningkatkan kemampuan membaca dan menulis Al-Qur’an.' },
 ]
 
 export const prestasi = [
@@ -50,7 +53,7 @@ export const schoolData = {
   schoolName: profilSekolah.nama,
   tagline: 'Membangun generasi cerdas, berkarakter, dan berprestasi.',
   npsn: profilSekolah.npsn,
-  address: 'Jln. Jur Blawean-Mlati, Desa. Turi, Kecamatan. Panekan, Kabupaten. Magetan',
+  address: 'RT 03 RW 05 Desa Turi, Kec.Panekan, Kab. Magetan',
   phone: '+62 812-3456-7890',
   email: 'info@sdnturi2.sch.id',
   vision: profilSekolah.visi,
@@ -61,7 +64,7 @@ export const schoolData = {
   achievements: prestasi.map((item) => ({ title: item.judul, year: item.tahun, detail: item.tingkat })),
   facilities: fasilitas.map((item) => ({ title: item.nama, description: item.deskripsi })),
   contact: {
-    address: 'Jln. Jur Blawean-Mlati, Desa. Turi, Kecamatan. Panekan, Kabupaten. Magetan',
+    address: 'RT 03 RW 05 Desa Turi, Kec.Panekan, Kab. Magetan',
     phone: '+62 812-3456-7890',
     email: 'info@sdnturi2.sch.id',
   },
