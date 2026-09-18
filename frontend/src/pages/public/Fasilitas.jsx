@@ -1,9 +1,10 @@
 import { Building2 } from 'lucide-react'
 import CardFasilitas from '../../components/CardFasilitas.jsx'
-import { fasilitas } from '../../data/schoolData.js'
+import { useSchool } from '../../context/SchoolContext.jsx'
 
 function Fasilitas() {
-  const facilities = fasilitas.map((item) => ({ title: item.nama, description: item.deskripsi, isUnggulan: item.isUnggulan }))
+  const { facilities: storedFacilities } = useSchool()
+  const facilities = storedFacilities.map((item) => ({ title: item.nama, description: item.deskripsi, isUnggulan: item.isUnggulan }))
   const featured = facilities.filter((item) => item.isUnggulan)
 
   return (

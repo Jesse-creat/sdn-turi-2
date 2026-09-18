@@ -1,12 +1,17 @@
-import { ArrowLeft, BarChart3, CalendarDays, FileText, LogOut } from 'lucide-react'
+import { ArrowLeft, BarChart3, BookOpen, CalendarDays, FileText, Image, LogOut, MapPin, School, Settings2 } from 'lucide-react'
 import { NavLink, Link, useNavigate } from 'react-router-dom'
 
 function SidebarAdmin({ onLogout }) {
   const navigate = useNavigate()
   const links = [
     ['/admin', 'Ringkasan', BarChart3],
+    ['/admin/profil', 'Profil', School],
+    ['/admin/akademik', 'Akademik', BookOpen],
+    ['/admin/fasilitas', 'Fasilitas', Settings2],
     ['/admin/artikel', 'Artikel', FileText],
+    ['/admin/galeri', 'Galeri', Image],
     ['/admin/kegiatan', 'Kegiatan', CalendarDays],
+    ['/admin/kontak', 'Kontak', MapPin],
   ]
 
   return (

@@ -1,11 +1,12 @@
 import { BookOpen, Trophy } from 'lucide-react'
 import CardEkskul from '../../components/CardEkskul.jsx'
 import CardPrestasi from '../../components/CardPrestasi.jsx'
-import { ekstrakurikuler, prestasi } from '../../data/schoolData.js'
+import { useSchool } from '../../context/SchoolContext.jsx'
 
 function Akademik() {
-  const activities = ekstrakurikuler.map((item) => ({ title: item.nama, description: item.deskripsi }))
-  const achievements = prestasi.map((item) => ({ title: item.judul, year: item.tahun, detail: item.tingkat }))
+  const { extracurriculars, achievements: storedAchievements } = useSchool()
+  const activities = extracurriculars.map((item) => ({ title: item.nama, description: item.deskripsi }))
+  const achievements = storedAchievements.map((item) => ({ title: item.judul, year: item.tahun, detail: item.tingkat }))
 
   return (
     <main className="bg-slate-50">

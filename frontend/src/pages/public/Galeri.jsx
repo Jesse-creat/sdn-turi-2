@@ -1,16 +1,5 @@
 function Galeri({ school }) {
-  const galleryImages = [
-    '/galeri/kegiatan (1).png',
-    '/galeri/kegiatan (2).png',
-    '/galeri/kegiatan (3).png',
-    '/galeri/kegiatan (4).png',
-    '/galeri/kegiatan (5).png',
-    '/galeri/kegiatan (6).png',
-    '/galeri/kegiatan (7).png',
-    '/galeri/kegiatan (8).png',
-    '/galeri/kegiatan (9).png',
-    '/galeri/kegiatan (10).png',
-  ]
+  const galleryImages = school.gallery
 
   return (
     <main className="page-shell bg-[#faf6ee]">

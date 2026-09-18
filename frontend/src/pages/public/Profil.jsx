@@ -1,9 +1,10 @@
 import { Building2, BookOpenText, Users } from 'lucide-react'
 import CardGuru from '../../components/CardGuru.jsx'
-import { guruAndStaf, profilSekolah } from '../../data/schoolData.js'
+import { useSchool } from '../../context/SchoolContext.jsx'
 
 function Profil({ school }) {
-  const teachers = guruAndStaf.map((guru) => ({
+  const { profile, teachers: storedTeachers } = useSchool()
+  const teachers = storedTeachers.map((guru) => ({
     name: guru.nama,
     role: guru.jabatan,
     initials: guru.nama.split(' ').map((word) => word[0]).slice(0, 2).join(''),
@@ -36,7 +37,7 @@ function Profil({ school }) {
               <Building2 className="h-7 w-7" />
             </div>
             <h2 className="text-3xl font-bold text-slate-900">Visi</h2>
-            <p className="mt-4 text-base leading-8 text-slate-600">{profilSekolah.visi}</p>
+            <p className="mt-4 text-base leading-8 text-slate-600">{profile.visi}</p>
           </div>
 
           <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
@@ -45,7 +46,7 @@ function Profil({ school }) {
             </div>
             <h2 className="text-3xl font-bold text-slate-900">Misi</h2>
             <ul className="mt-5 space-y-4 text-base leading-7 text-slate-600">
-              {profilSekolah.misi.map((item) => (
+              {profile.misi.map((item) => (
                 <li key={item} className="flex gap-3">
                   <span className="mt-2 h-2.5 w-2.5 flex-none rounded-full bg-yellow-400" />
                   <span>{item}</span>
@@ -57,9 +58,9 @@ function Profil({ school }) {
 
         <div className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <h2 className="text-3xl font-bold text-slate-900">Sejarah</h2>
-          <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">{profilSekolah.sejarah}</p>
+          <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">{profile.sejarah}</p>
           <div className="mt-8 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">NPSN</span><strong className="mt-1 block text-lg text-slate-900">{profilSekolah.npsn}</strong></div>
+            <div className="rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">NPSN</span><strong className="mt-1 block text-lg text-slate-900">{profile.npsn}</strong></div>
             <div className="rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">Alamat</span><strong className="mt-1 block text-lg text-slate-900">{school.address}</strong></div>
             <div className="rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">Status</span><strong className="mt-1 block text-lg text-slate-900">Sekolah Negeri</strong></div>
           </div>

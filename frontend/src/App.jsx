@@ -5,7 +5,7 @@ import './App.css'
 import Footer from './components/Footer.jsx'
 import Navbar from './components/Navbar.jsx'
 import SidebarAdmin from './components/SidebarAdmin.jsx'
-import { SchoolProvider } from './context/SchoolContext.jsx'
+import { SchoolProvider, useSchool } from './context/SchoolContext.jsx'
 import { schoolData } from './data/schoolData.js'
 import Akademik from './pages/public/Akademik.jsx'
 import Artikel from './pages/public/Artikel.jsx'
@@ -18,12 +18,34 @@ import Kontak from './pages/public/Kontak.jsx'
 import Profil from './pages/public/Profil.jsx'
 import AdminDashboard from './pages/admin/AdminDashboard.jsx'
 import AdminArtikel from './pages/admin/AdminArtikel.jsx'
+import AdminAkademik from './pages/admin/AdminAkademik.jsx'
+import AdminFasilitas from './pages/admin/AdminFasilitas.jsx'
+import AdminGaleri from './pages/admin/AdminGaleri.jsx'
 import AdminKegiatan from './pages/admin/AdminKegiatan.jsx'
+import AdminKontak from './pages/admin/AdminKontak.jsx'
 import AdminLogin from './pages/admin/AdminLogin.jsx'
+import AdminProfil from './pages/admin/AdminProfil.jsx'
 import { login as loginAdmin, logout as logoutAdmin } from './services/authService.js'
 
 function PublicLayout() {
   const location = useLocation()
+  const { profile, extracurriculars, achievements, facilities, gallery, contact } = useSchool()
+  const school = {
+    ...schoolData,
+    schoolName: profile.nama,
+    npsn: profile.npsn,
+    vision: profile.visi,
+    mission: profile.misi,
+    history: profile.sejarah,
+    address: contact.address,
+    phone: contact.phone,
+    email: contact.email,
+    contact,
+    extracurriculars,
+    achievements,
+    facilities,
+    gallery,
+  }
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'auto' })
@@ -69,18 +91,18 @@ function PublicLayout() {
         >
           <Routes>
             <Route path="/" element={<Home school={schoolData} />} />
-            <Route path="/profil" element={<Profil school={schoolData} />} />
-            <Route path="/akademik" element={<Akademik school={schoolData} />} />
-            <Route path="/fasilitas" element={<Fasilitas school={schoolData} />} />
+            <Route path="/profil" element={<Profil school={school} />} />
+            <Route path="/akademik" element={<Akademik school={school} />} />
+            <Route path="/fasilitas" element={<Fasilitas school={school} />} />
             <Route path="/artikel" element={<Artikel />} />
             <Route path="/artikel/:articleId" element={<ArtikelDetail />} />
             <Route path="/kegiatan" element={<Kegiatan />} />
-            <Route path="/galeri" element={<Galeri school={schoolData} />} />
-            <Route path="/kontak" element={<Kontak school={schoolData} />} />
+            <Route path="/galeri" element={<Galeri school={school} />} />
+            <Route path="/kontak" element={<Kontak school={school} />} />
           </Routes>
         </motion.div>
       </AnimatePresence>
-      <Footer school={schoolData} />
+      <Footer school={school} />
     </div>
   )
 }
@@ -92,8 +114,13 @@ function AdminLayout({ onLogout }) {
       <div className="min-w-0 flex-1">
         <Routes>
           <Route index element={<AdminDashboard />} />
+          <Route path="profil" element={<AdminProfil />} />
+          <Route path="akademik" element={<AdminAkademik />} />
+          <Route path="fasilitas" element={<AdminFasilitas />} />
           <Route path="artikel" element={<AdminArtikel />} />
+          <Route path="galeri" element={<AdminGaleri />} />
           <Route path="kegiatan" element={<AdminKegiatan />} />
+          <Route path="kontak" element={<AdminKontak />} />
         </Routes>
       </div>
     </div>

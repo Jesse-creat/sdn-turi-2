@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { getArticles, saveArticle as saveArticleApi, deleteArticle as deleteArticleApi } from '../services/artikelService.js'
 import { getActivities, saveActivity as saveActivityApi, deleteActivity as deleteActivityApi } from '../services/kegiatanService.js'
+import { ekstrakurikuler, fasilitas, guruAndStaf, prestasi, profilSekolah, schoolData } from '../data/schoolData.js'
 
 const SchoolContext = createContext(null)
 const initialArticles = [
@@ -12,12 +13,29 @@ const initialActivities = [
   { id: 1, title: 'Upacara Hari Senin', date: 'Setiap Senin', location: 'Lapangan sekolah', description: 'Kegiatan pembiasaan disiplin dan cinta tanah air.' },
   { id: 2, title: 'Latihan Pramuka', date: 'Jumat, 15.00', location: 'Halaman sekolah', description: 'Belajar mandiri, bekerja sama, dan peduli lingkungan.' },
 ]
+const initialProfile = { ...profilSekolah }
+const initialTeachers = guruAndStaf
+const initialExtracurriculars = ekstrakurikuler
+const initialAchievements = prestasi
+const initialFacilities = fasilitas
+const initialGallery = Array.from({ length: 10 }, (_, index) => `/galeri/kegiatan (${index + 1}).png`)
+const initialContact = { ...schoolData.contact }
 
 function readStored(key, fallback) {
   try {
     const stored = window.localStorage.getItem(key)
     const parsed = stored ? JSON.parse(stored) : fallback
     return normalizeList(parsed, fallback)
+  } catch {
+    return fallback
+  }
+}
+
+function readStoredValue(key, fallback) {
+  try {
+    const stored = window.localStorage.getItem(key)
+    const parsed = stored ? JSON.parse(stored) : fallback
+    return parsed && typeof parsed === 'object' && !Array.isArray(parsed) ? parsed : fallback
   } catch {
     return fallback
   }
@@ -33,6 +51,13 @@ function normalizeList(value, fallback) {
 export function SchoolProvider({ children }) {
   const [articles, setArticles] = useState(() => readStored('sdn-articles', initialArticles))
   const [activities, setActivities] = useState(() => readStored('sdn-activities', initialActivities))
+  const [profile, setProfile] = useState(() => readStoredValue('sdn-profile', initialProfile))
+  const [teachers, setTeachers] = useState(() => readStored('sdn-teachers', initialTeachers))
+  const [extracurriculars, setExtracurriculars] = useState(() => readStored('sdn-extracurriculars', initialExtracurriculars))
+  const [achievements, setAchievements] = useState(() => readStored('sdn-achievements', initialAchievements))
+  const [facilities, setFacilities] = useState(() => readStored('sdn-facilities', initialFacilities))
+  const [gallery, setGallery] = useState(() => readStored('sdn-gallery', initialGallery))
+  const [contact, setContact] = useState(() => readStoredValue('sdn-contact', initialContact))
   const [apiMode, setApiMode] = useState(false)
 
   useEffect(() => {
@@ -86,7 +111,45 @@ export function SchoolProvider({ children }) {
     setActivities(next)
   }
 
-  return <SchoolContext.Provider value={{ articles, activities, apiMode, saveArticle, deleteArticle, saveActivity, deleteActivity }}>{children}</SchoolContext.Provider>
+  const saveListItem = (key, items, setItems, item) => {
+    const next = item.id ? items.map((current) => current.id === item.id ? item : current) : [...items, { ...item, id: Date.now() }]
+    window.localStorage.setItem(key, JSON.stringify(next))
+    setItems(next)
+    return item
+  }
+
+  const deleteListItem = (key, items, setItems, id) => {
+    const next = items.filter((item) => item.id !== id)
+    window.localStorage.setItem(key, JSON.stringify(next))
+    setItems(next)
+  }
+
+  const saveProfile = (nextProfile) => {
+    window.localStorage.setItem('sdn-profile', JSON.stringify(nextProfile))
+    setProfile(nextProfile)
+  }
+  const saveContact = (nextContact) => {
+    window.localStorage.setItem('sdn-contact', JSON.stringify(nextContact))
+    setContact(nextContact)
+  }
+  const saveGallery = (nextGallery) => {
+    window.localStorage.setItem('sdn-gallery', JSON.stringify(nextGallery))
+    setGallery(nextGallery)
+  }
+
+  return <SchoolContext.Provider value={{
+    articles, activities, profile, teachers, extracurriculars, achievements, facilities, gallery, contact, apiMode,
+    saveArticle, deleteArticle, saveActivity, deleteActivity,
+    saveProfile, saveContact, saveGallery,
+    saveTeacher: (item) => saveListItem('sdn-teachers', teachers, setTeachers, item),
+    deleteTeacher: (id) => deleteListItem('sdn-teachers', teachers, setTeachers, id),
+    saveExtracurricular: (item) => saveListItem('sdn-extracurriculars', extracurriculars, setExtracurriculars, item),
+    deleteExtracurricular: (id) => deleteListItem('sdn-extracurriculars', extracurriculars, setExtracurriculars, id),
+    saveAchievement: (item) => saveListItem('sdn-achievements', achievements, setAchievements, item),
+    deleteAchievement: (id) => deleteListItem('sdn-achievements', achievements, setAchievements, id),
+    saveFacility: (item) => saveListItem('sdn-facilities', facilities, setFacilities, item),
+    deleteFacility: (id) => deleteListItem('sdn-facilities', facilities, setFacilities, id),
+  }}>{children}</SchoolContext.Provider>
 }
 
 // eslint-disable-next-line react-refresh/only-export-components

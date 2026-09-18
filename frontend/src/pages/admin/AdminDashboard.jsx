@@ -31,7 +31,7 @@ function AdminDashboard() {
 
       <section className="mt-6 rounded-2xl bg-[#0f2747] p-6 text-white shadow-lg shadow-slate-900/10 sm:p-8">
         <h2 className="text-2xl font-bold text-white">Kelola informasi sekolah dengan mudah.</h2>
-        <p className="mt-3 max-w-2xl leading-7 text-slate-300">Gunakan menu di samping untuk menambah, mengubah, atau menghapus artikel dan kegiatan sekolah.</p>
+        <p className="mt-3 max-w-2xl leading-7 text-slate-300">Gunakan menu di samping untuk menambah, mengubah, atau menghapus informasi sekolah.</p>
       </section>
     </main>
   )
