@@ -1,5 +1,5 @@
-import { ArrowRight, BookOpen, CalendarRange, GraduationCap, MapPin, Medal, Sparkles, Trophy, Users } from 'lucide-react'
-import { useEffect } from 'react'
+import { ArrowRight, BookOpen, CalendarRange, ChevronLeft, ChevronRight, GraduationCap, MapPin, Medal, Sparkles, Trophy, Users } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSchool } from '../../context/SchoolContext.jsx'
 
@@ -23,6 +23,25 @@ function Home({ school }) {
 
     return () => observer.disconnect()
   }, [])
+
+  const galleryImages = [
+    '/galeri/kegiatan (1).png',
+    '/galeri/kegiatan (2).png',
+    '/galeri/kegiatan (3).png',
+    '/galeri/kegiatan (4).png',
+    '/galeri/kegiatan (5).png',
+    '/galeri/kegiatan (6).png',
+    '/galeri/kegiatan (7).png',
+    '/galeri/kegiatan (8).png',
+    '/galeri/kegiatan (9).png',
+    '/galeri/kegiatan (10).png',
+  ]
+  const galleryPerPage = 4
+  const galleryTotalPages = Math.ceil(galleryImages.length / galleryPerPage)
+  const [galleryPage, setGalleryPage] = useState(0)
+  const visibleGalleryImages = galleryImages.slice(galleryPage * galleryPerPage, galleryPage * galleryPerPage + galleryPerPage)
+  const goToPrevGalleryPage = () => setGalleryPage((page) => (page - 1 + galleryTotalPages) % galleryTotalPages)
+  const goToNextGalleryPage = () => setGalleryPage((page) => (page + 1) % galleryTotalPages)
 
   const quickInfo = [
     { icon: GraduationCap, title: 'Pendidikan Berkualitas', description: 'Pembelajaran yang membangun karakter, logika, dan percaya diri.' },
@@ -130,10 +149,10 @@ function Home({ school }) {
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {featuredArticles.length ? featuredArticles.map((article) => (
               <article key={article.id} className="scroll-reveal group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
-                <div className="overflow-hidden">
+                <div className="overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105">
                   <img
                     alt={article.title}
-                    className="image-zoom h-56 w-full object-cover"
+                    className="h-56 w-full object-cover"
                     src={article.image || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80'}
                   />
                 </div>
@@ -246,31 +265,58 @@ function Home({ school }) {
 
       <section className="section-tint border-y border-slate-200/70 py-16">
         <div className="scroll-reveal mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="mb-10 text-center">
-            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Galeri</p>
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Moment pembelajaran dan kebersamaan</h2>
-            <svg className="mx-auto mt-3 h-2.5 w-20 text-yellow-400" viewBox="0 0 72 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 8C10 2 14 2 22 8C30 2 34 2 42 8C50 2 54 2 62 8C66 5 68 5 70 8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-            </svg>
+          <div className="mb-10 flex flex-col items-center gap-3 text-center sm:flex-row sm:items-end sm:justify-between sm:text-left">
+            <div>
+              <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Galeri</p>
+              <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Moment pembelajaran dan kebersamaan</h2>
+              <svg className="mt-3 h-2.5 w-20 text-yellow-400 sm:mx-0" viewBox="0 0 72 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 8C10 2 14 2 22 8C30 2 34 2 42 8C50 2 54 2 62 8C66 5 68 5 70 8" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
+              </svg>
+            </div>
+            <Link to="/galeri" className="hidden shrink-0 text-sm font-semibold text-blue-700 hover:text-blue-800 md:inline-flex md:items-center">Lihat semua <ArrowRight className="ml-2 h-4 w-4" /></Link>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              'https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=900&q=80',
-              'https://images.unsplash.com/photo-1513258496099-48168024aec0?auto=format&fit=crop&w=900&q=80',
-              'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=900&q=80',
-              'https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=900&q=80',
-            ].map((image, index) => (
-              <div key={image} className="scroll-reveal group relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm">
-                <img alt={`Galeri sekolah ${index + 1}`} className="h-64 w-full scale-100 object-cover transition-transform duration-500 ease-out group-hover:scale-110" src={image} />
-                <div className="absolute inset-0 bg-slate-950/20 opacity-0 transition group-hover:opacity-100" />
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-full bg-white/80 text-slate-900">
-                    <ArrowRight className="h-5 w-5" />
-                  </div>
-                </div>
+            {visibleGalleryImages.map((image, index) => (
+              <div key={image} className="group relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm transition-transform duration-500 ease-out hover:z-10 hover:scale-[1.05]">
+                <img alt={`Galeri sekolah ${galleryPage * galleryPerPage + index + 1}`} className="h-64 w-full object-cover" src={image} />
+                <div className="absolute inset-0 bg-slate-950/10 opacity-0 transition group-hover:opacity-100" />
               </div>
             ))}
           </div>
+
+          {galleryTotalPages > 1 && (
+            <div className="mt-8 flex items-center justify-center gap-5">
+              <button
+                type="button"
+                onClick={goToPrevGalleryPage}
+                aria-label="Foto sebelumnya"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-sm transition hover:border-yellow-400 hover:text-yellow-600"
+              >
+                <ChevronLeft className="h-5 w-5" />
+              </button>
+
+              <div className="flex items-center gap-2">
+                {Array.from({ length: galleryTotalPages }).map((_, pageIndex) => (
+                  <button
+                    key={pageIndex}
+                    type="button"
+                    onClick={() => setGalleryPage(pageIndex)}
+                    aria-label={`Ke halaman foto ${pageIndex + 1}`}
+                    className={`h-2.5 rounded-full transition-all ${pageIndex === galleryPage ? 'w-6 bg-yellow-500' : 'w-2.5 bg-slate-300 hover:bg-slate-400'}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={goToNextGalleryPage}
+                aria-label="Foto berikutnya"
+                className="flex h-10 w-10 items-center justify-center rounded-full border border-slate-300 bg-white text-slate-700 shadow-sm transition hover:border-yellow-400 hover:text-yellow-600"
+              >
+                <ChevronRight className="h-5 w-5" />
+              </button>
+            </div>
+          )}
         </div>
       </section>
 

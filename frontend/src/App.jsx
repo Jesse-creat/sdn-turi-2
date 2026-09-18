@@ -11,6 +11,7 @@ import Akademik from './pages/public/Akademik.jsx'
 import Artikel from './pages/public/Artikel.jsx'
 import ArtikelDetail from './pages/public/ArtikelDetail.jsx'
 import Fasilitas from './pages/public/Fasilitas.jsx'
+import Galeri from './pages/public/Galeri.jsx'
 import Home from './pages/public/Home.jsx'
 import Kegiatan from './pages/public/Kegiatan.jsx'
 import Kontak from './pages/public/Kontak.jsx'
@@ -74,6 +75,7 @@ function PublicLayout() {
             <Route path="/artikel" element={<Artikel />} />
             <Route path="/artikel/:articleId" element={<ArtikelDetail />} />
             <Route path="/kegiatan" element={<Kegiatan />} />
+            <Route path="/galeri" element={<Galeri school={schoolData} />} />
             <Route path="/kontak" element={<Kontak school={schoolData} />} />
           </Routes>
         </motion.div>

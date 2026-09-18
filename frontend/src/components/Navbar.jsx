@@ -10,6 +10,7 @@ function Navbar() {
     ['Akademik', '/akademik'],
     ['Fasilitas', '/fasilitas'],
     ['Artikel', '/artikel'],
+    ['Galeri', '/galeri'],
     ['Kegiatan', '/kegiatan'],
     ['Kontak', '/kontak'],
   ]
