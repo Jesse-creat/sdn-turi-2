@@ -1,4 +1,5 @@
 import { Mail, MapPin, Phone } from 'lucide-react'
+import { useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 
 function YoutubeIcon({ className }) {
@@ -20,6 +21,20 @@ function InstagramIcon({ className }) {
 }
 
 function Footer({ school }) {
+  const footerRef = useRef(null)
+
+  useEffect(() => {
+    const footer = footerRef.current
+    if (!footer) return undefined
+
+    const observer = new IntersectionObserver(([entry]) => {
+      footer.classList.toggle('is-visible', entry.isIntersecting)
+    }, { threshold: 0.12 })
+
+    observer.observe(footer)
+    return () => observer.disconnect()
+  }, [])
+
   const navLinks = [
     ['Beranda', '/'],
     ['Profil', '/profil'],
@@ -28,10 +43,10 @@ function Footer({ school }) {
   ]
 
   return (
-    <footer className="border-t border-school-gold/40 bg-school-navy text-slate-200">
+    <footer ref={footerRef} className="site-footer border-t border-school-gold/40 bg-school-navy text-slate-200">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-1">
+        <div className="footer-grid grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+          <div className="footer-column lg:col-span-1">
             <div className="mb-4 flex items-center gap-3">
               <img
                 src="/logo-sekolah.png"
@@ -47,7 +62,7 @@ function Footer({ school }) {
             </p>
           </div>
 
-          <div>
+          <div className="footer-column">
             <h3 className="mb-4 text-lg font-semibold text-white">Menu</h3>
             <ul className="space-y-3 text-sm text-slate-300">
               {navLinks.map(([label, path]) => (
@@ -58,7 +73,7 @@ function Footer({ school }) {
             </ul>
           </div>
 
-          <div>
+          <div className="footer-column">
             <h3 className="mb-4 text-lg font-semibold text-white">Tautan</h3>
             <ul className="space-y-3 text-sm text-slate-300">
               <li><Link className="transition hover:text-yellow-300" to="/fasilitas">Fasilitas</Link></li>
@@ -67,14 +82,14 @@ function Footer({ school }) {
             </ul>
           </div>
 
-          <div>
+          <div className="footer-column">
             <h3 className="mb-4 text-lg font-semibold text-white">Kontak</h3>
             <ul className="space-y-3 text-sm text-slate-300">
-              <li className="flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 text-yellow-300" /> <span>{school.address}</span></li>
-              <li className="flex items-start gap-3"><Phone className="mt-0.5 h-4 w-4 text-yellow-300" /> <span>{school.phone}</span></li>
-              <li className="flex items-start gap-3"><Mail className="mt-0.5 h-4 w-4 text-yellow-300" /> <span>{school.email}</span></li>
-              <li className="flex items-start gap-3"><YoutubeIcon className="mt-0.5 h-4 w-4 text-yellow-300" /> <a className="transition hover:text-yellow-300" href="https://www.youtube.com/results?search_query=SDN+Turi+2+Magetan" target="_blank" rel="noreferrer">SDN Turi 2 Magetan</a></li>
-              <li className="flex items-start gap-3"><InstagramIcon className="mt-0.5 h-4 w-4 text-yellow-300" /> <a className="transition hover:text-yellow-300" href="https://www.instagram.com/sdnegerituri/" target="_blank" rel="noreferrer">sdnegerituri</a></li>
+              <li className="footer-contact footer-contact-location flex items-start gap-3"><MapPin className="mt-0.5 h-4 w-4 flex-none" /> <a className="transition hover:text-yellow-300" href="https://maps.app.goo.gl/MsQdgjUmP6xaULgi8" target="_blank" rel="noopener noreferrer">{school.address}</a></li>
+              <li className="footer-contact footer-contact-phone flex items-start gap-3"><Phone className="mt-0.5 h-4 w-4" /> <span>{school.phone}</span></li>
+              <li className="footer-contact footer-contact-email flex items-start gap-3"><Mail className="mt-0.5 h-4 w-4" /> <span>{school.email}</span></li>
+              <li className="footer-contact footer-contact-youtube flex items-start gap-3"><YoutubeIcon className="mt-0.5 h-4 w-4" /> <a className="transition hover:text-yellow-300" href="https://www.youtube.com/results?search_query=SDN+Turi+2+Magetan" target="_blank" rel="noreferrer">SDN Turi 2 Magetan</a></li>
+              <li className="footer-contact footer-contact-instagram flex items-start gap-3"><InstagramIcon className="mt-0.5 h-4 w-4" /> <a className="transition hover:text-yellow-300" href="https://www.instagram.com/sdnegerituri/" target="_blank" rel="noreferrer">sdnegerituri</a></li>
             </ul>
           </div>
         </div>

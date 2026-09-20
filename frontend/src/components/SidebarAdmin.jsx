@@ -17,9 +17,11 @@ function SidebarAdmin({ onLogout }) {
   return (
     <aside className="flex w-full flex-col bg-[#0f2747] px-4 py-5 text-white lg:min-h-screen lg:w-72 lg:px-6 lg:py-7">
       <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white/10 font-display text-lg font-bold text-yellow-300">
-          SD
-        </div>
+        <img
+          alt="Logo SDN Turi 2"
+          className="h-11 w-11 rounded-xl border border-white/10 bg-white/10 object-contain p-1.5"
+          src="/logo-sekolah.png"
+        />
         <div>
           <div className="font-semibold">SDN Turi 2</div>
           <div className="text-xs text-slate-300">Panel administrasi</div>

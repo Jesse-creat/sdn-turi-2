@@ -1,4 +1,5 @@
 import { Building2 } from 'lucide-react'
+import { useEffect } from 'react'
 import CardFasilitas from '../../components/CardFasilitas.jsx'
 import { useSchool } from '../../context/SchoolContext.jsx'
 
@@ -7,10 +8,22 @@ function Fasilitas() {
   const facilities = storedFacilities.map((item) => ({ title: item.nama, description: item.deskripsi, isUnggulan: item.isUnggulan }))
   const featured = facilities.filter((item) => item.isUnggulan)
 
+  useEffect(() => {
+    const elements = document.querySelectorAll('.scroll-reveal')
+    if (!elements.length) return undefined
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-visible', entry.isIntersecting))
+    }, { threshold: 0.15 })
+
+    elements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <main className="bg-slate-50">
       <section className="relative overflow-hidden bg-school-navy text-white">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="scroll-reveal mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">Fasilitas</p>
           <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">Lingkungan belajar yang nyaman dan aman</h1>
         </div>
@@ -28,7 +41,7 @@ function Fasilitas() {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mb-8 flex items-center gap-3">
+        <div className="scroll-reveal mb-8 flex items-center gap-3">
           <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-blue-50 text-blue-700"><Building2 className="h-5 w-5" /></div>
           <h2 className="text-3xl font-bold text-slate-900">Fasilitas unggulan</h2>
         </div>
@@ -39,7 +52,7 @@ function Fasilitas() {
 
       <section className="bg-white py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <h2 className="mb-8 text-3xl font-bold text-slate-900">Daftar seluruh fasilitas</h2>
+          <h2 className="scroll-reveal mb-8 text-3xl font-bold text-slate-900">Daftar seluruh fasilitas</h2>
           <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
             {facilities.map((facility) => <CardFasilitas key={facility.title} facility={facility} />)}
           </div>

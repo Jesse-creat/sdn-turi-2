@@ -1,4 +1,5 @@
 import { Building2, BookOpenText, Users } from 'lucide-react'
+import { useEffect } from 'react'
 import CardGuru from '../../components/CardGuru.jsx'
 import { useSchool } from '../../context/SchoolContext.jsx'
 
@@ -7,8 +8,19 @@ function Profil({ school }) {
   const teachers = storedTeachers.map((guru) => ({
     name: guru.nama,
     role: guru.jabatan,
+    foto: guru.foto,
     initials: guru.nama.split(' ').map((word) => word[0]).slice(0, 2).join(''),
   }))
+
+  useEffect(() => {
+    const elements = document.querySelectorAll('.profile-reveal')
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-visible', entry.isIntersecting))
+    }, { threshold: 0.15 })
+
+    elements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
 
   return (
     <main className="bg-slate-50">
@@ -32,7 +44,7 @@ function Profil({ school }) {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-2">
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <div className="profile-reveal rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-blue-50 text-blue-700">
               <Building2 className="h-7 w-7" />
             </div>
@@ -40,7 +52,7 @@ function Profil({ school }) {
             <p className="mt-4 text-base leading-8 text-slate-600">{profile.visi}</p>
           </div>
 
-          <div className="rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <div className="profile-reveal rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
             <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-yellow-50 text-yellow-600">
               <BookOpenText className="h-7 w-7" />
             </div>
@@ -56,13 +68,13 @@ function Profil({ school }) {
           </div>
         </div>
 
-        <div className="mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <div className="profile-reveal mt-10 rounded-[2rem] border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <h2 className="text-3xl font-bold text-slate-900">Sejarah</h2>
           <p className="mt-4 max-w-3xl text-base leading-8 text-slate-600">{profile.sejarah}</p>
           <div className="mt-8 grid gap-3 text-sm text-slate-700 sm:grid-cols-3">
-            <div className="rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">NPSN</span><strong className="mt-1 block text-lg text-slate-900">{profile.npsn}</strong></div>
-            <div className="rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">Alamat</span><strong className="mt-1 block text-lg text-slate-900">{school.address}</strong></div>
-            <div className="rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">Status</span><strong className="mt-1 block text-lg text-slate-900">Sekolah Negeri</strong></div>
+            <div className="profile-reveal rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">NPSN</span><strong className="mt-1 block text-lg text-slate-900">{profile.npsn}</strong></div>
+            <div className="profile-reveal rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">Alamat</span><strong className="mt-1 block text-lg text-slate-900">{school.address}</strong></div>
+            <div className="profile-reveal rounded-2xl bg-slate-50 p-4"><span className="block text-slate-500">Status</span><strong className="mt-1 block text-lg text-slate-900">Sekolah Negeri</strong></div>
           </div>
         </div>
 

@@ -5,7 +5,7 @@ import { ekstrakurikuler, fasilitas, guruAndStaf, prestasi, profilSekolah, schoo
 
 const SchoolContext = createContext(null)
 const initialArticles = [
-  { id: 1, title: 'Membaca Membuka Jendela Dunia', excerpt: 'Gerakan literasi sekolah hadir setiap pagi untuk menumbuhkan kebiasaan membaca.', date: '10 September 2026' },
+  { id: 1, title: 'Membaca Membuka Jendela Dunia', excerpt: 'Gerakan literasi sekolah hadir setiap pagi untuk menumbuhkan kebiasaan membaca.', date: '18 September 2026', image: '/articles/kegiatan%20literasi.jpeg' },
   { id: 2, title: 'Semangat Belajar di Awal Tahun', excerpt: 'Siswa dan guru menyambut tahun ajaran baru dengan energi dan harapan.', date: '24 Juli 2026' },
 ]
 
@@ -48,14 +48,37 @@ function normalizeList(value, fallback) {
   return fallback
 }
 
+function readTeachers() {
+  const teachers = readStored('sdn-teachers', initialTeachers)
+  const legacyNames = new Set(['Drs. Budi Santoso, M.Pd', 'Siti Rahma, S.Pd', 'Ahmad Fauzi, S.Kom'])
+  return teachers.some((teacher) => legacyNames.has(teacher.nama)) ? initialTeachers : teachers
+}
+
+function readArticles() {
+  const articles = readStored('sdn-articles', initialArticles)
+  return articles.map((article) => article.id === 1 ? { ...article, date: '18 September 2026', image: article.image || initialArticles[0].image } : article)
+}
+
+function readFacilities() {
+  const facilities = readStored('sdn-facilities', initialFacilities)
+  const withoutComputerLab = facilities.filter((facility) => facility.nama !== 'Laboratorium Komputer')
+  const hasSportsField = withoutComputerLab.some((facility) => facility.nama === 'Lapangan Olahraga')
+
+  if (hasSportsField) {
+    return withoutComputerLab.map((facility) => facility.nama === 'Lapangan Olahraga' ? { ...facility, id: 1, isUnggulan: true } : facility)
+  }
+
+  return [{ ...initialFacilities[0] }, ...withoutComputerLab]
+}
+
 export function SchoolProvider({ children }) {
-  const [articles, setArticles] = useState(() => readStored('sdn-articles', initialArticles))
+  const [articles, setArticles] = useState(readArticles)
   const [activities, setActivities] = useState(() => readStored('sdn-activities', initialActivities))
   const [profile, setProfile] = useState(() => readStoredValue('sdn-profile', initialProfile))
-  const [teachers, setTeachers] = useState(() => readStored('sdn-teachers', initialTeachers))
+  const [teachers, setTeachers] = useState(readTeachers)
   const [extracurriculars, setExtracurriculars] = useState(() => readStored('sdn-extracurriculars', initialExtracurriculars))
   const [achievements, setAchievements] = useState(() => readStored('sdn-achievements', initialAchievements))
-  const [facilities, setFacilities] = useState(() => readStored('sdn-facilities', initialFacilities))
+  const [facilities, setFacilities] = useState(readFacilities)
   const [gallery, setGallery] = useState(() => readStored('sdn-gallery', initialGallery))
   const [contact, setContact] = useState(() => readStoredValue('sdn-contact', initialContact))
   const [apiMode, setApiMode] = useState(false)

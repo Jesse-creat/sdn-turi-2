@@ -1,11 +1,15 @@
 import { ArrowRight, BookOpen, CalendarRange, ChevronLeft, ChevronRight, GraduationCap, MapPin, Medal, Sparkles, Trophy, Users } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSchool } from '../../context/SchoolContext.jsx'
 
 function Home({ school }) {
   const navigate = useNavigate()
   const { articles, activities } = useSchool()
+  const statsRef = useRef(null)
+  const heroDragRef = useRef(null)
+  const [heroDragX, setHeroDragX] = useState(0)
+  const [stats, setStats] = useState([0, 0, 0])
 
   useEffect(() => {
     const elements = document.querySelectorAll('.scroll-reveal')
@@ -22,6 +26,58 @@ function Home({ school }) {
     elements.forEach((element) => observer.observe(element))
 
     return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const statsElement = statsRef.current
+    if (!statsElement) return undefined
+
+    let animationFrameId
+    let hasStarted = false
+    const targets = [24, 15, 90]
+    const duration = 2200
+
+    const animateStats = (startTime) => {
+      const progress = Math.min((performance.now() - startTime) / duration, 1)
+      const easedProgress = 1 - (1 - progress) ** 3
+      setStats(targets.map((target) => Math.round(target * easedProgress)))
+
+      if (progress < 1) {
+        animationFrameId = window.requestAnimationFrame(() => animateStats(startTime))
+      }
+    }
+
+    const startAnimation = () => {
+      if (hasStarted) return
+
+      hasStarted = true
+      observer.unobserve(statsElement)
+      animationFrameId = window.requestAnimationFrame(() => animateStats(performance.now()))
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !hasStarted) {
+        startAnimation()
+      }
+    }, { threshold: 0.05, rootMargin: '0px 0px -8% 0px' })
+
+    const checkStatsPosition = () => {
+      const bounds = statsElement.getBoundingClientRect()
+      if (bounds.top < window.innerHeight * 0.92 && bounds.bottom > 0) {
+        startAnimation()
+        window.removeEventListener('scroll', checkStatsPosition)
+      }
+    }
+
+    observer.observe(statsElement)
+    window.addEventListener('scroll', checkStatsPosition, { passive: true })
+    checkStatsPosition()
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', checkStatsPosition)
+      if (animationFrameId) window.cancelAnimationFrame(animationFrameId)
+    }
   }, [])
 
   const galleryImages = [
@@ -53,11 +109,34 @@ function Home({ school }) {
   const featuredArticles = articles.slice(0, 3)
   const featuredActivities = activities.slice(0, 3)
 
+  const handleHeroPointerDown = (event) => {
+    if (event.pointerType === 'mouse') return
+    heroDragRef.current = { startX: event.clientX, initialOffset: heroDragX }
+    event.currentTarget.setPointerCapture(event.pointerId)
+  }
+
+  const handleHeroPointerMove = (event) => {
+    if (!heroDragRef.current) return
+    const nextOffset = heroDragRef.current.initialOffset + event.clientX - heroDragRef.current.startX
+    setHeroDragX(Math.max(-260, Math.min(260, nextOffset)))
+  }
+
+  const stopHeroDrag = (event) => {
+    if (heroDragRef.current && event.currentTarget.hasPointerCapture(event.pointerId)) {
+      event.currentTarget.releasePointerCapture(event.pointerId)
+    }
+    heroDragRef.current = null
+  }
+
   return (
     <main className="page-shell bg-[#faf6ee]">
       <section
         className="hero-photo relative overflow-hidden bg-school-navy text-white"
-        style={{ backgroundImage: "url('/kkn-sdn-turi.png')" }}
+        onPointerCancel={stopHeroDrag}
+        onPointerDown={handleHeroPointerDown}
+        onPointerMove={handleHeroPointerMove}
+        onPointerUp={stopHeroDrag}
+        style={{ '--hero-drag-x': `${heroDragX}px`, backgroundImage: "url('/kkn-sdn-turi.png')" }}
       >
         <div className="absolute inset-0 bg-gradient-to-r from-[#1c2417]/85 via-school-navy/70 to-school-navy/55" />
         <div className="relative mx-auto flex min-h-[560px] max-w-7xl items-center justify-start px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
@@ -86,13 +165,13 @@ function Home({ school }) {
           <path d="M12 0l1.8 7.2L21 9l-7.2 1.8L12 18l-1.8-7.2L3 9l7.2-1.8L12 0z" />
         </svg>
 
-        {/* Garis pembatas bergelombang, transisi ke halaman krem */}
-        <svg className="absolute bottom-0 left-0 h-12 w-full text-[#faf6ee]" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path fill="currentColor" d="M0,32L60,28C120,24,240,16,360,18.7C480,21,600,35,720,40C840,45,960,40,1080,33.3C1200,27,1320,19,1380,16L1440,13V60H0Z" />
+        <svg aria-hidden="true" className="hero-wave pointer-events-none absolute bottom-0 left-0" viewBox="0 0 1440 70" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill="currentColor" d="M0 30C180 8 320 8 500 27C680 46 790 58 960 48C1130 38 1240 14 1440 22V70H0Z" />
         </svg>
+
       </section>
 
-      <section className="relative z-10 -mt-6 mx-auto max-w-7xl px-4 sm:px-6 lg:-mt-4 lg:px-8">
+      <section className="relative z-10 mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:py-8 lg:px-8">
         <div className="scroll-reveal grid gap-4 text-white md:grid-cols-2 xl:grid-cols-4">
           {quickInfo.map(({ icon: Icon, title, description }, index) => (
             <div key={title} className={`quick-info-card reveal-up rounded-2xl border border-[#7a9660] bg-[#3d5a40] p-4 shadow-[0_12px_24px_rgba(31,38,24,0.2)]${index > 0 ? ` reveal-up-delay-${Math.min(index, 3)}` : ''}`}>
@@ -107,18 +186,24 @@ function Home({ school }) {
         </div>
       </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-10 lg:grid-cols-2">
-          <div className="feature-image overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-3 shadow-sm">
-            <img
-              alt="Kepala sekolah SDN Turi 2"
-              className="h-[460px] w-full rounded-[1.5rem] object-cover"
-              src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=80"
-            />
+      <section className="welcome-section mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="scroll-reveal mb-10 text-center">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Sambutan kepala sekolah</p>
+          <span className="welcome-rule" />
+        </div>
+        <div className="welcome-card grid items-center gap-8 rounded-[2rem] border border-blue-200 bg-white/75 p-5 shadow-[0_20px_55px_rgba(61,90,64,0.12)] sm:p-8 lg:grid-cols-[320px_1fr] lg:gap-10">
+          <div className="feature-image text-center">
+            <div className="overflow-hidden rounded-[1.75rem] border-8 border-white bg-white shadow-[0_14px_28px_rgba(193,99,63,0.16)]">
+              <img
+                alt="Mutmainatun, S.Pd., Kepala Sekolah SDN Turi 2"
+                className="h-[360px] w-full object-cover lg:h-[390px]"
+                src="/guru/Kepala_Sekolah_Sdn_2_turi.jpg"
+              />
+            </div>
+            <h3 className="mt-4 text-xl font-bold text-slate-900">Mutmainatun, S.Pd.</h3>
+            <p className="mt-1 text-sm font-medium text-slate-500">Kepala Sekolah</p>
           </div>
           <div className="scroll-reveal">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-[0.25em] text-blue-600">Sambutan kepala sekolah</p>
-            <h2 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">Selamat datang di SDN Turi 2</h2>
             <p className="mt-6 text-base leading-8 text-slate-600">
               Assalamualaikum Warrohmatullahi Wabarrakatuh.
             </p>
@@ -222,11 +307,11 @@ function Home({ school }) {
                 SDN Turi 2 terus membangun semangat berprestasi dalam berbagai bidang akademik maupun non-akademik untuk masa depan yang lebih cerah.
               </p>
             </div>
-                  <div className="stats-group grid grid-cols-3 divide-x divide-white/20 rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-sm">
+                  <div ref={statsRef} className="stats-group grid grid-cols-3 divide-x divide-white/20 rounded-2xl border border-white/15 bg-white/10 px-2 py-4 backdrop-blur-sm">
                     {[
-                      ['24+', 'Kegiatan'],
-                      ['15', 'Prestasi'],
-                      ['90%', 'Siswa aktif'],
+                      [`${stats[0]}+`, 'Kegiatan'],
+                      [`${stats[1]}`, 'Prestasi'],
+                      [`${stats[2]}%`, 'Siswa aktif'],
                     ].map(([value, label]) => (
                       <div key={label} className="px-4 text-center sm:px-6">
                         <div className="text-3xl font-bold text-yellow-300">{value}</div>

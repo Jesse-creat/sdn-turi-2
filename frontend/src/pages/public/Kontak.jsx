@@ -1,4 +1,5 @@
 import { Clock3, Mail, MapPin, Phone } from 'lucide-react'
+import { useEffect } from 'react'
 
 function Kontak({ school }) {
   const address = school.contact?.address || school.address
@@ -15,10 +16,22 @@ function Kontak({ school }) {
     { icon: Clock3, label: 'Jam Pelayanan', value: 'Senin - Jumat, 07.30 - 13.30 WIB', href: null },
   ]
 
+  useEffect(() => {
+    const elements = document.querySelectorAll('.scroll-reveal')
+    if (!elements.length) return undefined
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-visible', entry.isIntersecting))
+    }, { threshold: 0.15 })
+
+    elements.forEach((element) => observer.observe(element))
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <main className="page-shell bg-slate-50">
       <section className="relative overflow-hidden bg-school-navy text-white">
-        <div className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
+        <div className="scroll-reveal mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
           <div className="max-w-2xl">
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.25em] text-yellow-300">Kontak</p>
             <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">Hubungi SDN Turi 2</h1>
@@ -39,7 +52,7 @@ function Kontak({ school }) {
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="grid gap-8 lg:grid-cols-2">
-          <div className="grid gap-5">
+          <div className="scroll-reveal grid gap-5">
             {contacts.map(({ icon: Icon, label, value, href }) => {
               const Wrapper = href ? 'a' : 'div'
               const wrapperProps = href
@@ -49,7 +62,7 @@ function Kontak({ school }) {
                 <Wrapper
                   key={label}
                   {...wrapperProps}
-                  className={`soft-shadow flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition ${href ? 'card-hover cursor-pointer hover:border-yellow-400/60' : ''}`}
+                  className={`scroll-reveal soft-shadow flex items-start gap-4 rounded-2xl border border-slate-200 bg-white p-5 transition ${href ? 'card-hover cursor-pointer hover:border-yellow-400/60' : ''}`}
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-blue-50 text-blue-600">
                     <Icon className="h-5 w-5" />
@@ -63,7 +76,7 @@ function Kontak({ school }) {
             })}
           </div>
 
-          <div className="soft-shadow rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
+          <div className="scroll-reveal soft-shadow rounded-3xl border border-slate-200 bg-white p-6 sm:p-8">
             <h2 className="mb-6 text-3xl font-bold text-slate-900">Kirim pesan</h2>
             <form className="space-y-4">
               <div>

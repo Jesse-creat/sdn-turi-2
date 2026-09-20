@@ -1,5 +1,22 @@
+import { useEffect, useRef } from 'react'
+
 function Galeri({ school }) {
   const galleryImages = school.gallery
+  const galleryRef = useRef(null)
+
+  useEffect(() => {
+    const galleryTiles = galleryRef.current?.querySelectorAll('.gallery-tile')
+    if (!galleryTiles?.length) return undefined
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-visible', entry.isIntersecting)
+      })
+    }, { threshold: 0.18 })
+
+    galleryTiles.forEach((tile) => observer.observe(tile))
+    return () => observer.disconnect()
+  }, [galleryImages.length])
 
   return (
     <main className="page-shell bg-[#faf6ee]">
@@ -26,14 +43,14 @@ function Galeri({ school }) {
       </section>
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div ref={galleryRef} className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {galleryImages.map((image, index) => (
             <div
               key={`${image}-${index}`}
-              className="group relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm transition-transform duration-500 ease-out hover:z-10 hover:scale-[1.04]"
+              className="gallery-tile group relative overflow-hidden rounded-[1.5rem] border border-slate-200 bg-white shadow-sm"
             >
-              <img alt={`Galeri sekolah ${index + 1}`} className="h-64 w-full object-cover" src={image} />
-              <div className="absolute inset-0 bg-slate-950/10 opacity-0 transition group-hover:opacity-100" />
+              <img alt={`Galeri sekolah ${index + 1}`} className="gallery-image h-64 w-full object-cover" src={image} />
+              <div className="gallery-overlay absolute inset-0 bg-slate-950/20 opacity-0" />
             </div>
           ))}
         </div>

@@ -1,9 +1,24 @@
 import { ArrowRight, CalendarRange, Search } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useSchool } from '../../context/SchoolContext.jsx'
 
 function Artikel() {
   const { articles } = useSchool()
+  const [searchTerm, setSearchTerm] = useState('')
+  const normalizedSearchTerm = searchTerm.trim().toLowerCase()
+  const filteredArticles = articles.filter((article) => [article.title, article.excerpt, article.date].some((value) => value?.toLowerCase().includes(normalizedSearchTerm)))
+
+  const articleRefs = useRef([])
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => entry.target.classList.toggle('is-visible', entry.isIntersecting))
+    }, { threshold: 0.15 })
+
+    articleRefs.current.filter(Boolean).forEach((article) => observer.observe(article))
+    return () => observer.disconnect()
+  }, [filteredArticles.length])
 
   return (
     <main className="bg-slate-50">
@@ -29,14 +44,14 @@ function Artikel() {
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative w-full max-w-md">
             <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
-            <input className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100" placeholder="Cari artikel" type="text" />
+            <input aria-label="Cari artikel" className="w-full rounded-xl border border-slate-200 bg-white py-3 pl-11 pr-4 text-sm outline-none transition focus:border-blue-400 focus:ring-2 focus:ring-blue-100" onChange={(event) => setSearchTerm(event.target.value)} placeholder="Cari artikel" type="search" value={searchTerm} />
           </div>
-          <div className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600">{articles.length} artikel</div>
+          <div className="rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm text-slate-600">{filteredArticles.length} artikel</div>
         </div>
 
         <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
-          {articles.map((article) => (
-            <article key={article.id} className="group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
+          {filteredArticles.map((article, index) => (
+            <article key={article.id} ref={(element) => { articleRefs.current[index] = element }} className="article-card group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
               <div className="overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105">
                 <img alt={article.title} className="h-56 w-full object-cover" src={article.image || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80'} />
               </div>
@@ -51,6 +66,11 @@ function Artikel() {
               </div>
             </article>
           ))}
+          {!filteredArticles.length && (
+            <div className="col-span-full rounded-2xl border border-dashed border-slate-300 bg-white p-10 text-center text-slate-600">
+              Artikel yang dicari belum ditemukan.
+            </div>
+          )}
         </div>
       </section>
     </main>

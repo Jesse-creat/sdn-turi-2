@@ -16,18 +16,18 @@ function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
-      <div className="mx-auto max-w-7xl px-4 py-4 sm:px-6 lg:px-8">
+    <header className="site-navbar sticky top-0 z-50 border-b border-slate-200 bg-white/90 backdrop-blur-md">
+      <div className="mx-auto max-w-7xl px-4 py-3 sm:px-6 sm:py-4 lg:px-8">
         <div className="flex items-center justify-between gap-4">
-          <Link to="/" className="flex items-center gap-3 text-slate-900">
+          <Link to="/" className="flex min-w-0 items-center gap-3 text-slate-900">
             <img
               src="/logo-sekolah.png"
               alt="Logo SDN Turi 2"
               className="h-11 w-11 rounded-xl border border-school-gold bg-white object-contain shadow-sm"
             />
-            <div>
-              <div className="text-lg font-bold tracking-tight">SDN Turi 2</div>
-              <div className="text-[11px] font-medium tracking-[0.18em] text-slate-500">SEKOLAH DASAR NEGERI</div>
+            <div className="min-w-0">
+              <div className="truncate text-lg font-bold tracking-tight">SDN Turi 2</div>
+              <div className="hidden text-[11px] font-medium tracking-[0.18em] text-slate-500 sm:block">SEKOLAH DASAR NEGERI</div>
             </div>
           </Link>
 

@@ -19,9 +19,16 @@ export const profilSekolah = {
 }
 
 export const guruAndStaf = [
-  { id: 1, nama: 'Drs. Budi Santoso, M.Pd', jabatan: 'Kepala Sekolah', foto: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=900&q=80' },
-  { id: 2, nama: 'Siti Rahma, S.Pd', jabatan: 'Guru Kelas 1', foto: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=900&q=80' },
-  { id: 3, nama: 'Ahmad Fauzi, S.Kom', jabatan: 'Staf Administrasi', foto: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=900&q=80' },
+  { id: 1, nama: 'Mutmainatun, S.Pd.', jabatan: 'Kepala Sekolah', foto: '/guru/Kepala_Sekolah_Sdn_2_turi.jpg' },
+  { id: 2, nama: 'Indah Novitasari, S.Pd.', jabatan: 'Wali Kelas 1', foto: '/guru/Wali_Kelas_1.jpg' },
+  { id: 3, nama: 'Aditiya Dwi Kusuma, S.Pd.', jabatan: 'Wali Kelas 2', foto: '/guru/Wali_kelas_2.jpg' },
+  { id: 4, nama: 'Rianti, S.Pd.', jabatan: 'Wali Kelas 3', foto: '/guru/Wali_Kelas_3.jpg' },
+  { id: 5, nama: 'Dias Frahmawati, S.Pd.', jabatan: 'Wali Kelas 4', foto: '/guru/Wali_Kelas_4.jpg' },
+  { id: 6, nama: 'Sri Nuryani, S.Pd.', jabatan: 'Wali Kelas 5', foto: '/guru/Wali_Kelas_5.jpg' },
+  { id: 7, nama: 'Eny Ruliana, S.Pd.SD.', jabatan: 'Wali Kelas 6', foto: '/guru/Wali_Kelas_6.jpg' },
+  { id: 8, nama: 'Anis Fitriana, S.Pd.', jabatan: 'Guru PJOK', foto: '/guru/Guru_PJOK.jpg' },
+  { id: 9, nama: 'Erna Agustini, S.Pd.I', jabatan: 'Guru PAI', foto: '/guru/Guru_PAI.jpg' },
+  { id: 10, nama: 'Sugiwo I', jabatan: 'Penjaga dan Tukang Kebun', foto: '/guru/Penjaga_dan_tukang_kebun.jpg' },
 ]
 
 export const ekstrakurikuler = [
@@ -41,11 +48,10 @@ export const prestasi = [
 ]
 
 export const fasilitas = [
-  { id: 1, nama: 'Laboratorium Komputer', isUnggulan: true, deskripsi: 'Dilengkapi 30 unit komputer modern dan ruang praktik digital yang nyaman.' },
+  { id: 1, nama: 'Lapangan Olahraga', isUnggulan: true, deskripsi: 'Lapangan serbaguna untuk olahraga, upacara, dan kegiatan siswa.' },
   { id: 2, nama: 'Perpustakaan Digital', isUnggulan: true, deskripsi: 'Koleksi buku, referensi, dan media belajar digital untuk mendukung literasi.' },
   { id: 3, nama: 'Ruang Kelas Nyaman', isUnggulan: false, deskripsi: 'Lingkungan belajar yang terang, aman, dan kondusif untuk kegiatan pembelajaran.' },
   { id: 4, nama: 'UKS & Kantin Sehat', isUnggulan: false, deskripsi: 'Fasilitas kesehatan dan makanan sehat yang menjaga kesejahteraan siswa.' },
-  { id: 5, nama: 'Lapangan Olahraga', isUnggulan: false, deskripsi: 'Lapangan serbaguna untuk olahraga, upacara, dan kegiatan siswa.' },
   { id: 6, nama: 'Ruang Guru', isUnggulan: false, deskripsi: 'Area kerja dan koordinasi guru yang rapi dan profesional.' },
 ]
 

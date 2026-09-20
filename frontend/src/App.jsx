@@ -79,7 +79,7 @@ function PublicLayout() {
   }, [location.pathname])
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-800">
+    <div className="min-h-screen bg-[#faf6ee] text-slate-800">
       <Navbar />
       <AnimatePresence initial={false} mode="wait">
         <motion.div
@@ -108,10 +108,51 @@ function PublicLayout() {
 }
 
 function AdminLayout({ onLogout }) {
+  const location = useLocation()
+
+  useEffect(() => {
+    const targets = document.querySelectorAll('main, section, article, form, .rounded-2xl, .rounded-xl')
+
+    targets.forEach((element) => {
+      if (element.closest('.admin-topbar')) return
+      element.classList.add('admin-scroll-reveal')
+    })
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        entry.target.classList.toggle('is-visible', entry.isIntersecting)
+      })
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px',
+    })
+
+    targets.forEach((element) => {
+      if (element.closest('.admin-topbar')) return
+      observer.observe(element)
+    })
+
+    return () => observer.disconnect()
+  }, [location.pathname])
+
   return (
     <div className="min-h-screen bg-slate-100 lg:flex">
       <SidebarAdmin onLogout={onLogout} />
-      <div className="min-w-0 flex-1">
+      <div className="relative min-w-0 flex-1">
+        <div className="admin-topbar flex items-center justify-end border-b border-slate-200 bg-white/80 px-4 py-3 backdrop-blur-sm sm:px-6 lg:px-8">
+          <div className="flex items-center gap-3 rounded-full border border-slate-200 bg-white px-3 py-2 shadow-sm">
+            <img
+              alt="Logo SDN Turi 2"
+              className="h-12 w-12 rounded-full border border-slate-200 bg-white object-contain p-1"
+              src="/logo-sekolah.png"
+            />
+            <div className="text-right leading-tight">
+              <div className="text-[10px] font-bold uppercase tracking-[0.18em] text-slate-500">Admin</div>
+              <div className="text-sm font-semibold text-slate-800">SDN Turi 2</div>
+            </div>
+          </div>
+        </div>
+
         <Routes>
           <Route index element={<AdminDashboard />} />
           <Route path="profil" element={<AdminProfil />} />
