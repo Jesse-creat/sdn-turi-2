@@ -5,7 +5,7 @@ import { useSchool } from '../../context/SchoolContext.jsx'
 
 function Home({ school }) {
   const navigate = useNavigate()
-  const { articles, activities } = useSchool()
+  const { articles, activities, achievements } = useSchool()
   const statsRef = useRef(null)
   const heroDragRef = useRef(null)
   const [heroDragX, setHeroDragX] = useState(0)
@@ -34,7 +34,7 @@ function Home({ school }) {
 
     let animationFrameId
     let hasStarted = false
-    const targets = [24, 15, 90]
+    const targets = [activities.length, achievements.length, 90]
     const duration = 2200
 
     const animateStats = (startTime) => {
@@ -78,7 +78,7 @@ function Home({ school }) {
       window.removeEventListener('scroll', checkStatsPosition)
       if (animationFrameId) window.cancelAnimationFrame(animationFrameId)
     }
-  }, [])
+  }, [activities.length, achievements.length])
 
   const galleryImages = [
     '/galeri/kegiatan (1).png',

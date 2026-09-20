@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { getArticles, saveArticle as saveArticleApi, deleteArticle as deleteArticleApi } from '../services/artikelService.js'
 import { getActivities, saveActivity as saveActivityApi, deleteActivity as deleteActivityApi } from '../services/kegiatanService.js'
+import { getAchievements, saveAchievement as saveAchievementApi, deleteAchievement as deleteAchievementApi } from '../services/prestasiService.js'
 import { ekstrakurikuler, fasilitas, guruAndStaf, prestasi, profilSekolah, schoolData } from '../data/schoolData.js'
 
 const SchoolContext = createContext(null)
@@ -85,10 +86,11 @@ export function SchoolProvider({ children }) {
 
   useEffect(() => {
     let mounted = true
-    Promise.all([getArticles(), getActivities()]).then(([serverArticles, serverActivities]) => {
+    Promise.all([getArticles(), getActivities(), getAchievements()]).then(([serverArticles, serverActivities, serverAchievements]) => {
       if (!mounted) return
       setArticles(normalizeList(serverArticles, initialArticles))
       setActivities(normalizeList(serverActivities, initialActivities))
+      setAchievements(normalizeList(serverAchievements, initialAchievements))
       setApiMode(true)
     }).catch(() => {
       // Development tanpa PHP memakai localStorage sebagai fallback.
@@ -147,6 +149,20 @@ export function SchoolProvider({ children }) {
     setItems(next)
   }
 
+  const saveAchievement = async (achievement) => {
+    if (apiMode) {
+      const saved = await saveAchievementApi(achievement)
+      setAchievements((current) => achievement.id ? current.map((item) => item.id === achievement.id ? saved : item) : [saved, ...current])
+      return saved
+    }
+    return saveListItem('sdn-achievements', achievements, setAchievements, achievement)
+  }
+
+  const deleteAchievement = async (id) => {
+    if (apiMode) await deleteAchievementApi(id)
+    deleteListItem('sdn-achievements', achievements, setAchievements, id)
+  }
+
   const saveProfile = (nextProfile) => {
     window.localStorage.setItem('sdn-profile', JSON.stringify(nextProfile))
     setProfile(nextProfile)
@@ -168,8 +184,8 @@ export function SchoolProvider({ children }) {
     deleteTeacher: (id) => deleteListItem('sdn-teachers', teachers, setTeachers, id),
     saveExtracurricular: (item) => saveListItem('sdn-extracurriculars', extracurriculars, setExtracurriculars, item),
     deleteExtracurricular: (id) => deleteListItem('sdn-extracurriculars', extracurriculars, setExtracurriculars, id),
-    saveAchievement: (item) => saveListItem('sdn-achievements', achievements, setAchievements, item),
-    deleteAchievement: (id) => deleteListItem('sdn-achievements', achievements, setAchievements, id),
+    saveAchievement,
+    deleteAchievement,
     saveFacility: (item) => saveListItem('sdn-facilities', facilities, setFacilities, item),
     deleteFacility: (id) => deleteListItem('sdn-facilities', facilities, setFacilities, id),
   }}>{children}</SchoolContext.Provider>
