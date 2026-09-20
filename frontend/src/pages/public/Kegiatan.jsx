@@ -28,7 +28,13 @@ function Kegiatan() {
         <div className="space-y-6">
           {activities.map((activity) => (
             <article key={activity.id} className="card-hover grid gap-5 overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white p-4 shadow-sm md:grid-cols-[240px_1fr] md:p-5">
-              <img alt={activity.title} className="h-52 w-full rounded-[1.25rem] object-cover md:h-full" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" />
+              {activity.image ? (
+                <img alt={activity.title} className="h-52 w-full rounded-[1.25rem] object-cover md:h-full" src={activity.image} />
+              ) : (
+                <div className="flex h-52 w-full items-center justify-center rounded-[1.25rem] bg-white px-4 text-center text-sm font-medium text-slate-400 md:h-full">
+                  Belum mengunggah foto
+                </div>
+              )}
               <div className="flex flex-col justify-center">
                 <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
                   <CalendarRange className="h-3.5 w-3.5 text-yellow-500" />

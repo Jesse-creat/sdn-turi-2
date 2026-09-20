@@ -29,7 +29,13 @@ function ArtikelDetail() {
             {article.date}
           </div>
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl">{article.title}</h1>
-          {article.image && <img alt={article.title} className="my-8 h-[360px] w-full rounded-[1.5rem] object-cover" src={article.image} />}
+          {article.image ? (
+            <img alt={article.title} className="my-8 h-[360px] w-full rounded-[1.5rem] object-cover" src={article.image} />
+          ) : (
+            <div className="my-8 flex h-[360px] w-full items-center justify-center rounded-[1.5rem] bg-white text-sm font-medium text-slate-400">
+              Belum mengunggah foto
+            </div>
+          )}
           <p className="text-lg leading-8 text-slate-600">{article.excerpt}</p>
           <div className="mt-8 space-y-5 text-base leading-8 text-slate-700">
             <p>{article.excerpt} Kegiatan ini menjadi bagian dari upaya SDN Turi 2 dalam menciptakan lingkungan belajar yang aktif, menyenangkan, dan membentuk semangat serta karakter siswa sejak dini.</p>

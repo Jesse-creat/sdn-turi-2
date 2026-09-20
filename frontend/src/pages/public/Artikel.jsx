@@ -53,7 +53,13 @@ function Artikel() {
           {filteredArticles.map((article, index) => (
             <article key={article.id} ref={(element) => { articleRefs.current[index] = element }} className="article-card group overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
               <div className="overflow-hidden transition-transform duration-500 ease-out group-hover:scale-105">
-                <img alt={article.title} className="h-56 w-full object-cover" src={article.image || 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=80'} />
+                {article.image ? (
+                  <img alt={article.title} className="h-56 w-full object-cover" src={article.image} />
+                ) : (
+                  <div className="flex h-56 w-full items-center justify-center bg-white px-4 text-center text-sm font-medium text-slate-400">
+                    Belum mengunggah foto
+                  </div>
+                )}
               </div>
               <div className="p-5">
                 <div className="mb-3 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
